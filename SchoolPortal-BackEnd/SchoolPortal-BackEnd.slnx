@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="SchoolPortal-API/SchoolPortal-API.csproj" />
+  <Project Path="SchoolPortal-BackEnd.AppHost/SchoolPortal-BackEnd.AppHost.csproj" />
+  <Project Path="SchoolPortal-BackEnd.ServiceDefaults/SchoolPortal-BackEnd.ServiceDefaults.csproj" />
+  <Project Path="SchoolPortal-BackEnd.Shared/SchoolPortal.Shared.csproj" />
+</Solution>
