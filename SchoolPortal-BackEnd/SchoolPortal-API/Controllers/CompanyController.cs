@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using SchoolPortal_API.Interfaces;
 using SchoolPortal_API.ViewModels.Company;
@@ -25,11 +26,13 @@ namespace SchoolPortal_API.Controllers
     {
         private readonly ICompanyService _companyService;
         private readonly ILogger<CompanyController> _logger;
+        private readonly IMemoryCache _cache;
 
-        public CompanyController(ICompanyService companyService, ILogger<CompanyController> logger)
+        public CompanyController(ICompanyService companyService, ILogger<CompanyController> logger, IMemoryCache cache)
         {
             _companyService = companyService ?? throw new ArgumentNullException(nameof(companyService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _cache = cache ?? throw new ArgumentNullException(nameof(cache));
         }
 
         private Guid GetCurrentUserId()
@@ -54,11 +57,17 @@ namespace SchoolPortal_API.Controllers
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CompanyResponseDto>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public async Task<IActionResult> GetAllCompanies()
+        public async Task<ActionResult<IEnumerable<CompanyResponseDto>>> GetAllCompanies()
         {
             try
             {
-                var companies = await _companyService.GetAllCompaniesAsync();
+                var cacheKey = "all_companies";
+                if (!_cache.TryGetValue(cacheKey, out var obj) || obj is not IEnumerable<CompanyResponseDto> companies)
+                {
+                    companies = await _companyService.GetAllCompaniesAsync();
+                    var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
+                    _cache.Set(cacheKey, companies, cacheEntryOptions);
+                }
                 return Ok(companies);
             }
             catch (Exception ex)
@@ -82,11 +91,20 @@ namespace SchoolPortal_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CompanyResponseDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public async Task<IActionResult> GetCompanyById(Guid id)
+        public async Task<ActionResult<CompanyResponseDto>> GetCompanyById(Guid id)
         {
             try
             {
-                var company = await _companyService.GetCompanyByIdAsync(id);
+                var cacheKey = $"company_{id}";
+                if (!_cache.TryGetValue(cacheKey, out CompanyResponseDto? company))
+                {
+                    company = await _companyService.GetCompanyByIdAsync(id);
+                    if (company != null)
+                    {
+                        var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
+                        _cache.Set(cacheKey, company, cacheEntryOptions);
+                    }
+                }
                 if (company == null)
                 {
                     return NotFound(new { message = $"Company with ID {id} not found" });
@@ -95,7 +113,7 @@ namespace SchoolPortal_API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error occurred while retrieving company with ID {id}");
+                _logger.LogError(ex, "Error occurred while retrieving company with ID {CompanyId}", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An error occurred while processing your request" });
             }
         }
@@ -117,7 +135,7 @@ namespace SchoolPortal_API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public async Task<IActionResult> CreateCompany([FromBody] CompanyDto companyDto)
+        public async Task<ActionResult<CompanyResponseDto>> CreateCompany([FromBody] CompanyDto companyDto)
         {
             try
             {
@@ -128,13 +146,20 @@ namespace SchoolPortal_API.Controllers
 
                 var userId = GetCurrentUserId();
                 var createdCompany = await _companyService.CreateCompanyAsync(companyDto, userId);
-                
+
                 if (createdCompany == null)
                 {
                     _logger.LogError("Failed to create company");
                     return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Failed to create company" });
                 }
-                
+
+                // Invalidate related caches
+                _cache.Remove("all_companies");
+                if (createdCompany.Id != Guid.Empty)
+                {
+                    _cache.Remove($"company_{createdCompany.Id}");
+                }
+
                 return CreatedAtAction(nameof(GetCompanyById), new { id = createdCompany.Id }, createdCompany);
             }
             catch (UnauthorizedAccessException ex)
@@ -168,7 +193,7 @@ namespace SchoolPortal_API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] CompanyDto companyDto)
+        public async Task<ActionResult<CompanyResponseDto>> UpdateCompany(Guid id, [FromBody] CompanyDto companyDto)
         {
             try
             {
@@ -179,12 +204,16 @@ namespace SchoolPortal_API.Controllers
 
                 var userId = GetCurrentUserId();
                 var updatedCompany = await _companyService.UpdateCompanyAsync(id, companyDto, userId);
-                
+
                 if (updatedCompany == null)
                 {
                     return NotFound(new { message = $"Company with ID {id} not found" });
                 }
-                
+
+                // Invalidate related caches
+                _cache.Remove("all_companies");
+                _cache.Remove($"company_{id}");
+
                 return Ok(updatedCompany);
             }
             catch (UnauthorizedAccessException ex)
@@ -194,7 +223,7 @@ namespace SchoolPortal_API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error occurred while updating company with ID {id}");
+                _logger.LogError(ex, "Error occurred while updating company with ID {CompanyId}", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An error occurred while processing your request" });
             }
         }
@@ -222,12 +251,16 @@ namespace SchoolPortal_API.Controllers
             {
                 var userId = GetCurrentUserId();
                 var result = await _companyService.DeleteCompanyAsync(id, userId);
-                
+
                 if (!result)
                 {
                     return NotFound(new { message = $"Company with ID {id} not found" });
                 }
-                
+
+                // Invalidate related caches
+                _cache.Remove("all_companies");
+                _cache.Remove($"company_{id}");
+
                 return NoContent();
             }
             catch (UnauthorizedAccessException ex)
@@ -237,7 +270,7 @@ namespace SchoolPortal_API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error occurred while deleting company with ID {id}");
+                _logger.LogError(ex, "Error occurred while deleting company with ID {CompanyId}", id);
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An error occurred while processing your request" });
             }
         }
@@ -254,11 +287,17 @@ namespace SchoolPortal_API.Controllers
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<dynamic>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public async Task<IActionResult> GetCountries()
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetCountries()
         {
             try
             {
-                var countries = await _companyService.GetCountriesAsync();
+                var cacheKey = "all_countries";
+                if (!_cache.TryGetValue(cacheKey, out var countriesObj) || countriesObj is not IEnumerable<dynamic> countries)
+                {
+                    countries = await _companyService.GetCountriesAsync();
+                    var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1));
+                    _cache.Set(cacheKey, countries, cacheEntryOptions);
+                }
                 return Ok(countries);
             }
             catch (Exception ex)
@@ -281,16 +320,22 @@ namespace SchoolPortal_API.Controllers
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<dynamic>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public async Task<IActionResult> GetStatesByCountryId(Guid countryId)
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetStatesByCountryId(Guid countryId)
         {
             try
             {
-                var states = await _companyService.GetStatesByCountryIdAsync(countryId);
+                var cacheKey = $"states_{countryId}";
+                if (!_cache.TryGetValue(cacheKey, out var statesObj) || statesObj is not IEnumerable<dynamic> states)
+                {
+                    states = await _companyService.GetStatesByCountryIdAsync(countryId);
+                    var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1));
+                    _cache.Set(cacheKey, states, cacheEntryOptions);
+                }
                 return Ok(states);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error occurred while retrieving states for country ID {countryId}");
+                _logger.LogError(ex, "Error occurred while retrieving states for country ID {CountryId}", countryId);
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An error occurred while processing your request" });
             }
         }
@@ -308,16 +353,22 @@ namespace SchoolPortal_API.Controllers
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<dynamic>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-        public async Task<IActionResult> GetCitiesByStateId(Guid stateId)
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetCitiesByStateId(Guid stateId)
         {
             try
             {
-                var cities = await _companyService.GetCitiesByStateIdAsync(stateId);
+                var cacheKey = $"cities_{stateId}";
+                if (!_cache.TryGetValue(cacheKey, out var citiesObj) || citiesObj is not IEnumerable<dynamic> cities)
+                {
+                    cities = await _companyService.GetCitiesByStateIdAsync(stateId);
+                    var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1));
+                    _cache.Set(cacheKey, cities, cacheEntryOptions);
+                }
                 return Ok(cities);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error occurred while retrieving cities for state ID {stateId}");
+                _logger.LogError(ex, "Error occurred while retrieving cities for state ID {StateId}", stateId);
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An error occurred while processing your request" });
             }
         }

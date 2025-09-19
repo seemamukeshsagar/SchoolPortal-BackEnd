@@ -1,6 +1,9 @@
 using AutoMapper;
 using SchoolPortal.Shared.Models;
 using SchoolPortal_API.ViewModels.Company;
+using SchoolPortal_API.ViewModels.Country;
+using SchoolPortal_API.ViewModels.State;
+using SchoolPortal_API.ViewModels.City;
 
 namespace SchoolPortal_API.Mappings
 {
@@ -18,6 +21,21 @@ namespace SchoolPortal_API.Mappings
 
             CreateMap<CompanyDto, CompanyMaster>()
                 .ForMember(dest => dest.JudistrictionArea, opt => opt.MapFrom(src => src.JurisdictionAreaId));
+
+            // Country mappings
+            CreateMap<CountryMaster, CountryResponseDto>();
+            CreateMap<CountryDto, CountryMaster>();
+
+            // State mappings
+            CreateMap<StateMaster, StateResponseDto>()
+                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Country.CountryName));
+            CreateMap<StateDto, StateMaster>();
+
+            // City mappings
+            CreateMap<CityMaster, CityResponseDto>()
+                .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.CityStateNavigation.StateName))
+                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.CityStateNavigation.Country.CountryName));
+            CreateMap<CityDto, CityMaster>();
         }
     }
 }

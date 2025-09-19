@@ -10,6 +10,9 @@ namespace SchoolPortal_API.Repositories
         private readonly SchoolPortalContext _context;
         private ICompanyRepository? _companies;
         private ISchoolRepository? _schools;
+        private ICountryRepository? _countries;
+        private IStateRepository? _states;
+        private ICityRepository? _cities;
 
         public UnitOfWork(SchoolPortalContext context)
         {
@@ -18,6 +21,9 @@ namespace SchoolPortal_API.Repositories
 
         public ICompanyRepository Companies => _companies ??= new CompanyRepository(_context);
         public ISchoolRepository Schools => _schools ??= new SchoolRepository(_context);
+        public ICountryRepository Countries => _countries ??= new CountryRepository(_context);
+        public IStateRepository States => _states ??= new StateRepository(_context);
+        public ICityRepository Cities => _cities ??= new CityRepository(_context);
 
         public async Task<int> CompleteAsync()
         {

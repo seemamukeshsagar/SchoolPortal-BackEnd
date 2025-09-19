@@ -7,6 +7,9 @@ namespace SchoolPortal_API.Interfaces
     {
         ICompanyRepository Companies { get; }
         ISchoolRepository Schools { get; }
+        ICountryRepository Countries { get; }
+        IStateRepository States { get; }
+        ICityRepository Cities { get; }
         Task<int> CompleteAsync();
     }
 }

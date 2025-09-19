@@ -50,5 +50,47 @@ namespace SchoolPortal_API.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<int> CountByCityIdAsync(Guid cityId)
+        {
+            return await _context.CompanyMasters
+                .Where(c => c.CityId == cityId && !c.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> CountByJurisdictionCityIdAsync(Guid jurisdictionCityId)
+        {
+            return await _context.CompanyMasters
+                .Where(c => c.JudistrictionArea == jurisdictionCityId && !c.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> CountByStateIdAsync(Guid stateId)
+        {
+            return await _context.CompanyMasters
+                .Where(c => c.StateId == stateId && !c.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> CountByJurisdictionStateIdAsync(Guid jurisdictionStateId)
+        {
+            return await _context.CompanyMasters
+                .Where(c => c.JudistrictionArea == jurisdictionStateId && !c.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> CountByCountryIdAsync(Guid countryId)
+        {
+            return await _context.CompanyMasters
+                .Where(c => c.CountryId == countryId && !c.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> CountByJurisdictionCountryIdAsync(Guid jurisdictionCountryId)
+        {
+            return await _context.CompanyMasters
+                .Where(c => c.CountryId == jurisdictionCountryId && !c.IsDeleted)
+                .CountAsync();
+        }
+
     }
 }
