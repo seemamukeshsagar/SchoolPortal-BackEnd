@@ -10,7 +10,7 @@ namespace SchoolPortal_API.Repositories
 {
     public class CompanyRepository : Repository<CompanyMaster>, ICompanyRepository
     {
-        public CompanyRepository(SchoolPortalContext context) : base(context)
+        public CompanyRepository(SchoolNewPortalContext context) : base(context)
         {
         }
 

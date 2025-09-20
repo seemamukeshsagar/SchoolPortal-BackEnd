@@ -1,57 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class StudentReportCardDetail
 {
-    public Guid RepcardDetailId { get; set; }
+    [Key]
+    public int REPCARD_DETAIL_ID { get; set; }
 
-    public int RepcardDetailRepcardId { get; set; }
+    public int REPCARD_DETAIL_REPCARD_ID { get; set; }
 
-    public string? RepcardDetailSubjectType { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string REPCARD_DETAIL_SUBJECT_TYPE { get; set; }
 
-    public int? RepcardDetailSubjectId { get; set; }
+    public int? REPCARD_DETAIL_SUBJECT_ID { get; set; }
 
-    public decimal? RepcardDetailQuarterMarks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_QUARTER_MARKS { get; set; }
 
-    public decimal? RepcardDetailFa1Marks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_FA1_MARKS { get; set; }
 
-    public decimal? RepcardDetailFa2Marks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_FA2_MARKS { get; set; }
 
-    public decimal? RepcardDetailSaMarks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_SA_MARKS { get; set; }
 
-    public string? RepcardDetailGrade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARD_DETAIL_GRADE { get; set; }
 
-    public string? RepcardDetailFa1Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARD_DETAIL_FA1_GRADE { get; set; }
 
-    public string? RepcardDetailFa2Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARD_DETAIL_FA2_GRADE { get; set; }
 
-    public string? RepcardDetailSaGrade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARD_DETAIL_SA_GRADE { get; set; }
 
-    public decimal? RepcardDetailTotalMarks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_TOTAL_MARKS { get; set; }
 
-    public string? RepcardDetailTotalGrade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARD_DETAIL_TOTAL_GRADE { get; set; }
 
-    public int? RepcardDetailCmpId { get; set; }
+    public int? REPCARD_DETAIL_CMP_ID { get; set; }
 
-    public int? RepcardDetailSchId { get; set; }
+    public int? REPCARD_DETAIL_SCH_ID { get; set; }
 
-    public decimal? RepcardDetailTotalMarksQuarter { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_TOTAL_MARKS_QUARTER { get; set; }
 
-    public decimal? RepcardDetailTotalMarksFa1 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_TOTAL_MARKS_FA1 { get; set; }
 
-    public decimal? RepcardDetailTotalMarksFa2 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_TOTAL_MARKS_FA2 { get; set; }
 
-    public decimal? RepcardDetailTotalMarksSa { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_TOTAL_MARKS_SA { get; set; }
 
-    public decimal? RepcardDetailTotalMarksFinal { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARD_DETAIL_TOTAL_MARKS_FINAL { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

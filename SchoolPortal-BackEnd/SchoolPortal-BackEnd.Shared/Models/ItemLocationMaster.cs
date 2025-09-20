@@ -1,35 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("ItemLocationMaster")]
 public partial class ItemLocationMaster
 {
-    public Guid ItemLocationId { get; set; }
+    [Key]
+    public int ITEM_LOCATION_ID { get; set; }
 
-    public string? ItemLocationName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string ITEM_LOCATION_NAME { get; set; }
 
-    public string? ItemLocationDescription { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string ITEM_LOCATION_DESCRIPTION { get; set; }
 
-    public string? ItemLocationBuilding { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string ITEM_LOCATION_BUILDING { get; set; }
 
-    public string? ItemLocationFloor { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ITEM_LOCATION_FLOOR { get; set; }
 
-    public int? ItemLocationNumber { get; set; }
+    public int? ITEM_LOCATION_NUMBER { get; set; }
 
-    public int? ItemLocationCapacity { get; set; }
+    public int? ITEM_LOCATION_CAPACITY { get; set; }
 
-    public bool? ItemLocationIsActive { get; set; }
+    public bool? ITEM_LOCATION_IS_ACTIVE { get; set; }
 
-    public int ItemLocationCmpId { get; set; }
+    public int ITEM_LOCATION_CMP_ID { get; set; }
 
-    public int ItemLocationSchId { get; set; }
+    public int ITEM_LOCATION_SCH_ID { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
+
+    [InverseProperty("INV_ITEM_LOCATION")]
+    public virtual ICollection<InventoryMaster> InventoryMasters { get; set; } = new List<InventoryMaster>();
 }

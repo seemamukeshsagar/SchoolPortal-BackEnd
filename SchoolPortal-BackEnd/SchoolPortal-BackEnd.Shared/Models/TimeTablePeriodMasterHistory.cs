@@ -1,35 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("TimeTablePeriodMasterHistory")]
 public partial class TimeTablePeriodMasterHistory
 {
-    public Guid TtperiodhId { get; set; }
+    [Key]
+    public int TTPERIODH_ID { get; set; }
 
-    public int TtperiodhPeriodId { get; set; }
+    public int TTPERIODH_PERIOD_ID { get; set; }
 
-    public string TtperiodhDesctiption { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string TTPERIODH_DESCTIPTION { get; set; }
 
-    public int TtperiodhNumber { get; set; }
+    public int TTPERIODH_NUMBER { get; set; }
 
-    public TimeOnly TtperiodhStartTime { get; set; }
+    [Precision(0)]
+    public TimeOnly TTPERIODH_START_TIME { get; set; }
 
-    public TimeOnly TtperiodhEndTime { get; set; }
+    [Precision(0)]
+    public TimeOnly TTPERIODH_END_TIME { get; set; }
 
-    public int TtperiodhTtsessionId { get; set; }
+    public int TTPERIODH_TTSESSION_ID { get; set; }
 
-    public int TtperiodhCmpId { get; set; }
+    public int TTPERIODH_CMP_ID { get; set; }
 
-    public int TtperiodhSchId { get; set; }
+    public int TTPERIODH_SCH_ID { get; set; }
 
-    public string? TtperiodhSession { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string TTPERIODH_SESSION { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

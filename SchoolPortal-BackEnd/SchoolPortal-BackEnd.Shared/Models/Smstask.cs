@@ -1,43 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
-public partial class Smstask
+[Table("SMSTask")]
+public partial class SMSTask
 {
-    public Guid StsId { get; set; }
+    [Key]
+    public int STS_ID { get; set; }
 
-    public string? StsName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STS_NAME { get; set; }
 
-    public string? StsDescription { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string STS_DESCRIPTION { get; set; }
 
-    public string StsNotificationSendEmail { get; set; } = null!;
+    [Required]
+    [StringLength(1)]
+    [Unicode(false)]
+    public string STS_NOTIFICATION_SEND_EMAIL { get; set; }
 
-    public string StsNotificationSendSms { get; set; } = null!;
+    [Required]
+    [StringLength(1)]
+    [Unicode(false)]
+    public string STS_NOTIFICATION_SEND_SMS { get; set; }
 
-    public int StsNotificationReceieverId { get; set; }
+    public int STS_NOTIFICATION_RECEIEVER_ID { get; set; }
 
-    public string StsRepeatSchedule { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STS_REPEAT_SCHEDULE { get; set; }
 
-    public int StsStatusId { get; set; }
+    public int STS_STATUS_ID { get; set; }
 
-    public bool StsIsActive { get; set; }
+    public bool STS_IS_ACTIVE { get; set; }
 
-    public int StsCmpId { get; set; }
+    public int STS_CMP_ID { get; set; }
 
-    public int StsSchId { get; set; }
+    public int STS_SCH_ID { get; set; }
 
-    public bool? StsIsReadonly { get; set; }
+    public bool? STS_IS_READONLY { get; set; }
 
-    public int? StsLastRunStatusId { get; set; }
+    public int? STS_LAST_RUN_STATUS_ID { get; set; }
 
-    public DateTime? StsLastRunDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? STS_LAST_RUN_DATE { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
+
+    [InverseProperty("STS_SCHEDULE_TASK")]
+    public virtual ICollection<SMSTaskSchedule> SMSTaskSchedules { get; set; } = new List<SMSTaskSchedule>();
+
+    [InverseProperty("STSSMTP_TASK")]
+    public virtual ICollection<SMSTaskSmtpDetail> SMSTaskSmtpDetails { get; set; } = new List<SMSTaskSmtpDetail>();
+
+    [ForeignKey("STS_NOTIFICATION_RECEIEVER_ID")]
+    [InverseProperty("SMSTasks")]
+    public virtual NotificationReceiverMaster STS_NOTIFICATION_RECEIEVER { get; set; }
 }

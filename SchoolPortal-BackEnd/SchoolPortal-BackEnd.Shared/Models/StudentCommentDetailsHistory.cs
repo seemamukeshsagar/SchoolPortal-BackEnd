@@ -1,45 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("StudentCommentDetailsHistory")]
 public partial class StudentCommentDetailsHistory
 {
-    public Guid StucommenthId { get; set; }
+    [Key]
+    public int STUCOMMENTH_ID { get; set; }
 
-    public int StucommenthStucommentId { get; set; }
+    public int STUCOMMENTH_STUCOMMENT_ID { get; set; }
 
-    public Guid StucommenthStuGuid { get; set; }
+    public Guid STUCOMMENTH_STU_GUID { get; set; }
 
-    public int StucommenthCmId { get; set; }
+    public int STUCOMMENTH_CM_ID { get; set; }
 
-    public int StucommenthSecId { get; set; }
+    public int STUCOMMENTH_SEC_ID { get; set; }
 
-    public string? StucommenthSession { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUCOMMENTH_SESSION { get; set; }
 
-    public string? StucommenthQ1Desc { get; set; }
+    [StringLength(500)]
+    [Unicode(false)]
+    public string STUCOMMENTH_Q1_DESC { get; set; }
 
-    public string? StucommenthQ2Desc { get; set; }
+    [StringLength(500)]
+    [Unicode(false)]
+    public string STUCOMMENTH_Q2_DESC { get; set; }
 
-    public string? StucommenthQ3Desc { get; set; }
+    [StringLength(500)]
+    [Unicode(false)]
+    public string STUCOMMENTH_Q3_DESC { get; set; }
 
-    public string? StucommenthSa1Desc { get; set; }
+    [StringLength(500)]
+    [Unicode(false)]
+    public string STUCOMMENTH_SA1_DESC { get; set; }
 
-    public string? StucommenthSa2Desc { get; set; }
+    [StringLength(500)]
+    [Unicode(false)]
+    public string STUCOMMENTH_SA2_DESC { get; set; }
 
-    public string? StucommenthFinalDesc { get; set; }
+    [StringLength(500)]
+    [Unicode(false)]
+    public string STUCOMMENTH_FINAL_DESC { get; set; }
 
-    public bool? StucommenthIsAactive { get; set; }
+    public bool? STUCOMMENTH_IS_AACTIVE { get; set; }
 
-    public int StucommenthCmpId { get; set; }
+    public int STUCOMMENTH_CMP_ID { get; set; }
 
-    public int StucommenthSchId { get; set; }
+    public int STUCOMMENTH_SCH_ID { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

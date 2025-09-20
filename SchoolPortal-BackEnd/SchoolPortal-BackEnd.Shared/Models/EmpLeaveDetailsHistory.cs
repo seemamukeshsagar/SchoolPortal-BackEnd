@@ -1,43 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("EmpLeaveDetailsHistory")]
 public partial class EmpLeaveDetailsHistory
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int EMPLDH_ID { get; set; }
 
-    public Guid EmployeeId { get; set; }
+    public int EMPLDH_EMP_ID { get; set; }
 
-    public Guid CategoryId { get; set; }
+    public int EMPLDH_CAT_ID { get; set; }
 
-    public Guid LeaveTypeId { get; set; }
+    public int EMPLDH_LEAVE_TYPE_ID { get; set; }
 
-    public decimal? TotalLeaves { get; set; }
+    [Column(TypeName = "decimal(18, 1)")]
+    public decimal? EMPLDH_TOTAL_LEAVES { get; set; }
 
-    public decimal? PreviousYearBalance { get; set; }
+    [Column(TypeName = "decimal(18, 1)")]
+    public decimal? EMPLDH_PREV_YEAR_BALANCE { get; set; }
 
-    public decimal? CurrentBalance { get; set; }
+    [Column(TypeName = "decimal(18, 1)")]
+    public decimal? EMPLDH_CURRENT_BALANCE { get; set; }
 
-    public Guid SessionId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMPLDH_SESSION { get; set; }
 
-    public Guid CompanyId { get; set; }
+    public int EMPLDH_CMP_ID { get; set; }
 
-    public Guid SchoolId { get; set; }
+    public int EMPLDH_SCH_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
+    [ForeignKey("EMPLDH_CAT_ID")]
+    [InverseProperty("EmpLeaveDetailsHistories")]
+    public virtual EmpCategoryMaster EMPLDH_CAT { get; set; }
 
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [ForeignKey("EMPLDH_EMP_ID")]
+    [InverseProperty("EmpLeaveDetailsHistories")]
+    public virtual EmpMaster EMPLDH_EMP { get; set; }
 }

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class DesigGradeDetail
 {
+    [Key]
     public Guid Id { get; set; }
 
     public Guid DesignationId { get; set; }
@@ -21,23 +25,38 @@ public partial class DesigGradeDetail
 
     public Guid? CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string? Status { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(255)]
+    public string StatusMessage { get; set; }
 
-    public virtual CompanyMaster Company { get; set; } = null!;
+    [ForeignKey("CompanyId")]
+    [InverseProperty("DesigGradeDetails")]
+    public virtual CompanyMaster Company { get; set; }
 
-    public virtual UserDetail? CreatedByNavigation { get; set; }
+    [ForeignKey("CreatedBy")]
+    [InverseProperty("DesigGradeDetailCreatedByNavigations")]
+    public virtual UserDetail CreatedByNavigation { get; set; }
 
-    public virtual DesigMaster Designation { get; set; } = null!;
+    [ForeignKey("DesignationId")]
+    [InverseProperty("DesigGradeDetails")]
+    public virtual DesigMaster Designation { get; set; }
 
-    public virtual UserDetail? ModifiedByNavigation { get; set; }
+    [ForeignKey("ModifiedBy")]
+    [InverseProperty("DesigGradeDetailModifiedByNavigations")]
+    public virtual UserDetail ModifiedByNavigation { get; set; }
 
-    public virtual SchoolMaster School { get; set; } = null!;
+    [ForeignKey("SchoolId")]
+    [InverseProperty("DesigGradeDetails")]
+    public virtual SchoolMaster School { get; set; }
 }

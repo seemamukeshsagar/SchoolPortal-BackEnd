@@ -1,19 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("BookMaster")]
+[Index("ISBNNumber", Name = "UQ_BookMaster_ISBNNumber", IsUnique = true)]
 public partial class BookMaster
 {
+    [Key]
     public Guid Id { get; set; }
 
-    public string? Code { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Code { get; set; }
 
-    public string? Title { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string Title { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string Description { get; set; }
 
-    public string? Image { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string Image { get; set; }
 
     public Guid TypeId { get; set; }
 
@@ -25,25 +39,35 @@ public partial class BookMaster
 
     public Guid? SupplierId { get; set; }
 
-    public string? Edition { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Edition { get; set; }
 
     public int? NoOfCopies { get; set; }
 
     public int? StockInHand { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? PublishingDate { get; set; }
 
-    public string? Isbnnumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ISBNNumber { get; set; }
 
+    [Column(TypeName = "decimal(18, 2)")]
     public decimal? Price { get; set; }
 
     public int? TotalPages { get; set; }
 
     public bool IsIssuable { get; set; }
 
-    public string? CallNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CallNumber { get; set; }
 
-    public string? AccessionNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string AccessionNumber { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -55,13 +79,18 @@ public partial class BookMaster
 
     public Guid? CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string? Status { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(255)]
+    public string StatusMessage { get; set; }
 }

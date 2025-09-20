@@ -1,47 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("PublisherMaster")]
 public partial class PublisherMaster
 {
-    public Guid PublisherId { get; set; }
+    [Key]
+    public int PUBLISHER_ID { get; set; }
 
-    public string? PublisherName { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string PUBLISHER_NAME { get; set; }
 
-    public string? PublisherDescription { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string PUBLISHER_DESCRIPTION { get; set; }
 
-    public string? PublisherAddress { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string PUBLISHER_ADDRESS { get; set; }
 
-    public string? PublisherCity { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string PUBLISHER_CITY { get; set; }
 
-    public string? PublisherState { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string PUBLISHER_STATE { get; set; }
 
-    public string? PublisherCountry { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string PUBLISHER_COUNTRY { get; set; }
 
-    public string? PublisherZipcode { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string PUBLISHER_ZIPCODE { get; set; }
 
-    public string? PublisherPhone { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string PUBLISHER_PHONE { get; set; }
 
-    public string? PublisherMobile { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string PUBLISHER_MOBILE { get; set; }
 
-    public string? PublisherEmail { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string PUBLISHER_EMAIL { get; set; }
 
-    public int? PublisherCityId { get; set; }
+    public int? PUBLISHER_CITY_ID { get; set; }
 
-    public int? PublisherStateId { get; set; }
+    public int? PUBLISHER_STATE_ID { get; set; }
 
-    public bool PublisherIsActive { get; set; }
+    public bool PUBLISHER_IS_ACTIVE { get; set; }
 
-    public int PublisherCmpId { get; set; }
+    public int PUBLISHER_CMP_ID { get; set; }
 
-    public int PublisherSchId { get; set; }
+    public int PUBLISHER_SCH_ID { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

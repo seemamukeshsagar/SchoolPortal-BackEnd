@@ -1,71 +1,108 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("DriverMaster")]
 public partial class DriverMaster
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int DRIVER_ID { get; set; }
 
-    public string FirstName { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_FIRST_NAME { get; set; }
 
-    public string? LastName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_LAST_NAME { get; set; }
 
-    public DateTime? DateOfBirth { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? DRIVER_DOB { get; set; }
 
-    public string FathersName { get; set; } = null!;
+    public int? DRIVER_QUAL_ID { get; set; }
 
-    public string MothersName { get; set; } = null!;
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_MOBILE_PHONE { get; set; }
 
-    public Guid QualificationId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_ADDRESS { get; set; }
 
-    public string? Address1 { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_PHONE { get; set; }
 
-    public string? Address2 { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_CITY { get; set; }
 
-    public Guid CityId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_STATE { get; set; }
 
-    public Guid StateId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_ZIPCODE { get; set; }
 
-    public Guid CountryId { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string DRIVER_IMAGE { get; set; }
 
-    public string? ZipCode { get; set; }
+    public int DRIVER_CMP_ID { get; set; }
 
-    public string? MobileNumber { get; set; }
+    public int DRIVER_SCH_ID { get; set; }
 
-    public string? PhoneNumber { get; set; }
+    public bool DRIVER_IS_ACTIVE { get; set; }
 
-    public string? DriverImage { get; set; }
+    public int? DRIVER_CITY_ID { get; set; }
 
-    public string? LicenceNumber { get; set; }
+    public int? DRIVER_STATE_ID { get; set; }
 
-    public DateTime? LicenceIssueDate { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_LICENCE_NUMBER { get; set; }
 
-    public DateTime? LicenceValidUptoDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? DRIVER_LICENCE_ISSUE_DATE { get; set; }
 
-    public string? LicenceDescription { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? DRIVER_LICENCE_VALID_DATE { get; set; }
 
-    public string? LicenceImage { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string DRIVER_LICENCE_DESCRIPTION { get; set; }
 
-    public string? LicenceType { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string DRIVER_LICENCE_IMAGE { get; set; }
 
-    public Guid CompanyId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string DRIVER_LICENCE_TYPE { get; set; }
 
-    public Guid SchoolId { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string DRIVER_FATHER_NAME { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
-
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

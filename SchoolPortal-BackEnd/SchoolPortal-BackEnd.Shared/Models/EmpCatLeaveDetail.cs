@@ -1,37 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class EmpCatLeaveDetail
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int ECAT_LEAVE_DETAIL_ID { get; set; }
 
-    public Guid EmpCatLeaveCategoryId { get; set; }
+    public int? ECAT_LEAVE_CAT_ID { get; set; }
 
-    public Guid LeaveTypeId { get; set; }
+    public int? ECAT_LEAVE_TYPE_ID { get; set; }
 
-    public decimal? TotalLeaves { get; set; }
+    [Column(TypeName = "decimal(18, 1)")]
+    public decimal? ECAT_LEAVE_TOTAL_LEAVES { get; set; }
 
-    public string? Session { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ECAT_LEAVE_SESSION { get; set; }
 
-    public Guid CompanyId { get; set; }
+    public int ECAT_LEAVE_SCH_ID { get; set; }
 
-    public Guid SchoolId { get; set; }
+    public int ECAT_LEAVE_CMP_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [ForeignKey("ECAT_LEAVE_CAT_ID")]
+    [InverseProperty("EmpCatLeaveDetails")]
+    public virtual EmpCategoryMaster ECAT_LEAVE_CAT { get; set; }
 }

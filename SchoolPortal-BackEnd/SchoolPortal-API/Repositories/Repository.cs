@@ -11,10 +11,10 @@ namespace SchoolPortal_API.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly SchoolPortalContext _context;
+        protected readonly SchoolNewPortalContext _context;
         protected readonly DbSet<T> _dbSet;
 
-        public Repository(SchoolPortalContext context)
+        public Repository(SchoolNewPortalContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _dbSet = _context.Set<T>();

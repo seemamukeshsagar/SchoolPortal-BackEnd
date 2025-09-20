@@ -1,37 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class EmpDocumentDetail
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int EDOC_ID { get; set; }
 
-    public Guid EmpoyeeId { get; set; }
+    public int EDOC_EMP_ID { get; set; }
 
-    public string? DocumentName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EDOC_NAME { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string EDOC_DESCRIPTION { get; set; }
 
-    public string? FileName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string EDOC_FILENAME { get; set; }
 
-    public Guid CompanyId { get; set; }
+    public int EDOC_CMP_ID { get; set; }
 
-    public Guid SchoolId { get; set; }
+    public int EDOC_SCH_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [ForeignKey("EDOC_EMP_ID")]
+    [InverseProperty("EmpDocumentDetails")]
+    public virtual EmpMaster EDOC_EMP { get; set; }
 }

@@ -1,31 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("ScholasticMaster")]
 public partial class ScholasticMaster
 {
-    public Guid ScholasticId { get; set; }
+    [Key]
+    public int SCHOLASTIC_ID { get; set; }
 
-    public string? ScholasticName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string SCHOLASTIC_NAME { get; set; }
 
-    public string? ScholasticDesc { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string SCHOLASTIC_DESC { get; set; }
 
-    public int? ScholasticParentId { get; set; }
+    public int? SCHOLASTIC_PARENT_ID { get; set; }
 
-    public int? ScholasticSubjectId { get; set; }
+    public int? SCHOLASTIC_SUBJECT_ID { get; set; }
 
-    public int ScholasticCmpId { get; set; }
+    public int SCHOLASTIC_CMP_ID { get; set; }
 
-    public int ScholasticSchId { get; set; }
+    public int SCHOLASTIC_SCH_ID { get; set; }
 
-    public string? ScholasticSession { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string SCHOLASTIC_SESSION { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
+
+    [InverseProperty("SCOHUD_SCHOLASTIC")]
+    public virtual ICollection<ScholasticUnitDetail> ScholasticUnitDetails { get; set; } = new List<ScholasticUnitDetail>();
 }

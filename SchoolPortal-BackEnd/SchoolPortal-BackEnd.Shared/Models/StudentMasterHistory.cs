@@ -1,133 +1,216 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[PrimaryKey("STUH_GUID", "STUH_SESSION")]
+[Table("StudentMasterHistory")]
 public partial class StudentMasterHistory
 {
-    public Guid StuhGuid { get; set; }
+    [Key]
+    public Guid STUH_GUID { get; set; }
 
-    public int StuhRollNumber { get; set; }
+    public int STUH_ROLL_NUMBER { get; set; }
 
-    public string? StuhFirstName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string STUH_FIRST_NAME { get; set; }
 
-    public string? StuhLastName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string STUH_LAST_NAME { get; set; }
 
-    public string? StuhAddress { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string STUH_ADDRESS { get; set; }
 
-    public string? StuhCity { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_CITY { get; set; }
 
-    public string? StuhState { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_STATE { get; set; }
 
-    public string? StuhZipCode { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_ZIP_CODE { get; set; }
 
-    public string? StuhCountry { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_COUNTRY { get; set; }
 
-    public string? StuhContactNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_CONTACT_NUMBER { get; set; }
 
-    public string? StuhEmergencyContactNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_EMERGENCY_CONTACT_NUMBER { get; set; }
 
-    public DateTime StuhDob { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime STUH_DOB { get; set; }
 
-    public DateTime StuhDoj { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime STUH_DOJ { get; set; }
 
-    public string StuhRegstrationNumber { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_REGSTRATION_NUMBER { get; set; }
 
-    public int StuhCmId { get; set; }
+    public int STUH_CM_ID { get; set; }
 
-    public int StuhSecId { get; set; }
+    public int STUH_SEC_ID { get; set; }
 
-    public string? StuhHouseAllotted { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_HOUSE_ALLOTTED { get; set; }
 
-    public string? StuhTransport { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_TRANSPORT { get; set; }
 
-    public string? StuhImage { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string STUH_IMAGE { get; set; }
 
-    public string? StuhEmail { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_EMAIL { get; set; }
 
-    public int StuhCatId { get; set; }
+    public int STUH_CAT_ID { get; set; }
 
-    public string? StuhSiblingIfAny { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_SIBLING_IF_ANY { get; set; }
 
-    public int? StuhSiblingCmId { get; set; }
+    public int? STUH_SIBLING_CM_ID { get; set; }
 
-    public string? StuhGender { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUH_GENDER { get; set; }
 
-    public string? StuhDisabilityAny { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_DISABILITY_ANY { get; set; }
 
-    public string? StuhMedicalAlergiesAny { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_MEDICAL_ALERGIES_ANY { get; set; }
 
-    public string? StuhBirthPlace { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_BIRTH_PLACE { get; set; }
 
-    public string? StuhBirthCountry { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_BIRTH_COUNTRY { get; set; }
 
-    public string? StuhPreviousSchoolAttended { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string STUH_PREVIOUS_SCHOOL_ATTENDED { get; set; }
 
-    public string? StuhPreviousSchoolClass { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_PREVIOUS_SCHOOL_CLASS { get; set; }
 
-    public decimal? StuhPreviousSchoolPercentage { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUH_PREVIOUS_SCHOOL_PERCENTAGE { get; set; }
 
-    public string? StuhPreviousSchoolRank { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_PREVIOUS_SCHOOL_RANK { get; set; }
 
-    public int? StuhPreviousSchoolBoardId { get; set; }
+    public int? STUH_PREVIOUS_SCHOOL_BOARD_ID { get; set; }
 
-    public DateTime? StuhPreviousSchoolFromDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? STUH_PREVIOUS_SCHOOL_FROM_DATE { get; set; }
 
-    public DateTime? StuhPreviousSchoolToDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? STUH_PREVIOUS_SCHOOL_TO_DATE { get; set; }
 
-    public int StuhCmpId { get; set; }
+    public int STUH_CMP_ID { get; set; }
 
-    public int StuhSchId { get; set; }
+    public int STUH_SCH_ID { get; set; }
 
-    public DateTime? StuhWithdrawnDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? STUH_WITHDRAWN_DATE { get; set; }
 
-    public string? StuhWithdrawnReason { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string STUH_WITHDRAWN_REASON { get; set; }
 
-    public string? StuhBloodGroup { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_BLOOD_GROUP { get; set; }
 
-    public string? StuhNationality { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_NATIONALITY { get; set; }
 
-    public string? StuhHobbies { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string STUH_HOBBIES { get; set; }
 
-    public string? StuhReligion { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_RELIGION { get; set; }
 
-    public string? StuhPhone { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_PHONE { get; set; }
 
-    public int? StuhCityId { get; set; }
+    public int? STUH_CITY_ID { get; set; }
 
-    public int? StuhStateId { get; set; }
+    public int? STUH_STATE_ID { get; set; }
 
-    public int? StuhBloodGroupId { get; set; }
+    public int? STUH_BLOOD_GROUP_ID { get; set; }
 
-    public int? StuhReligionId { get; set; }
+    public int? STUH_RELIGION_ID { get; set; }
 
-    public int? StuhRouteId { get; set; }
+    public int? STUH_ROUTE_ID { get; set; }
 
-    public int? StuhRouteStopId { get; set; }
+    public int? STUH_ROUTE_STOP_ID { get; set; }
 
-    public int? StuhClassTeacherId { get; set; }
+    public int? STUH_CLASS_TEACHER_ID { get; set; }
 
-    public int? StuhRoutePickAndDrop { get; set; }
+    public int? STUH_ROUTE_PICK_AND_DROP { get; set; }
 
-    public int? StuhFdcmId { get; set; }
+    public int? STUH_FDCM_ID { get; set; }
 
-    public decimal? StuhTutionFees { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUH_TUTION_FEES { get; set; }
 
-    public decimal? StuhAnnualFfes { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUH_ANNUAL_FFES { get; set; }
 
-    public decimal? StuhTransportFees { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUH_TRANSPORT_FEES { get; set; }
 
-    public bool? StuhUseTransportFees { get; set; }
+    public bool? STUH_USE_TRANSPORT_FEES { get; set; }
 
-    public bool? StuhIsActive { get; set; }
+    public bool? STUH_IS_ACTIVE { get; set; }
 
-    public string StuhSession { get; set; } = null!;
+    [Key]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUH_SESSION { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

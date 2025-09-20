@@ -10,9 +10,9 @@ namespace SchoolPortal_API.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly SchoolPortalContext _context;
+        private readonly SchoolNewPortalContext _context;
 
-        public UserRepository(SchoolPortalContext context)
+        public UserRepository(SchoolNewPortalContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

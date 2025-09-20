@@ -12,9 +12,9 @@ namespace SchoolPortal_API.Repositories
 {
     public class StateRepository : IRepository<StateMaster>, IStateRepository
     {
-        private readonly SchoolPortalContext _context;
+        private readonly SchoolNewPortalContext _context;
 
-        public StateRepository(SchoolPortalContext context)
+        public StateRepository(SchoolNewPortalContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

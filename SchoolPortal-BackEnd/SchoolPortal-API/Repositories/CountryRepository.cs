@@ -12,9 +12,9 @@ namespace SchoolPortal_API.Repositories
 {
     public class CountryRepository : IRepository<CountryMaster>, ICountryRepository
     {
-        private readonly SchoolPortalContext _context;
+        private readonly SchoolNewPortalContext _context;
 
-        public CountryRepository(SchoolPortalContext context)
+        public CountryRepository(SchoolNewPortalContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

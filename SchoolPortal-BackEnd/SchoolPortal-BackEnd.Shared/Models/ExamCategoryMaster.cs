@@ -1,33 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("ExamCategoryMaster")]
 public partial class ExamCategoryMaster
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int EXAM_CAT_ID { get; set; }
 
-    public string? ExamCategoryName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EXAM_CAT_NAME { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EXAM_CAT_DESC { get; set; }
 
-    public Guid CompanyId { get; set; }
+    public int EXAM_CAT_CMP_ID { get; set; }
 
-    public Guid SchoolId { get; set; }
+    public int EXAM_CAT_SCH_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
-
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

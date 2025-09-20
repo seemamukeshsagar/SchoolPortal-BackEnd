@@ -1,35 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class TimeTableClassPeriodDetail
 {
-    public Guid TtclpdId { get; set; }
+    [Key]
+    public int TTCLPD_ID { get; set; }
 
-    public int TtclpdCmId { get; set; }
+    public int TTCLPD_CM_ID { get; set; }
 
-    public int TtclpdSecId { get; set; }
+    public int TTCLPD_SEC_ID { get; set; }
 
-    public int? TtclpdSubId { get; set; }
+    public int? TTCLPD_SUB_ID { get; set; }
 
-    public int TtclpdPeriodId { get; set; }
+    public int TTCLPD_PERIOD_ID { get; set; }
 
-    public int TtclpdDayOfWeek { get; set; }
+    public int TTCLPD_DAY_OF_WEEK { get; set; }
 
-    public int TtclpdSessionId { get; set; }
+    public int TTCLPD_SESSION_ID { get; set; }
 
-    public int TtclpdCmpId { get; set; }
+    public int TTCLPD_CMP_ID { get; set; }
 
-    public int TtclpdSchId { get; set; }
+    public int TTCLPD_SCH_ID { get; set; }
 
-    public string? TtclpdSession { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string TTCLPD_SESSION { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

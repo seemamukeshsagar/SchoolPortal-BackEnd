@@ -11,9 +11,9 @@ namespace SchoolPortal_API.Repositories
 {
     public class CityRepository : IRepository<CityMaster>, ICityRepository
     {
-        private readonly SchoolPortalContext _context;
+        private readonly SchoolNewPortalContext _context;
 
-        public CityRepository(SchoolPortalContext context)
+        public CityRepository(SchoolNewPortalContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

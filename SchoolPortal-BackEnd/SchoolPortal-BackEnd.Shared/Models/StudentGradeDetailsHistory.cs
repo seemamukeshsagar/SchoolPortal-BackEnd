@@ -1,53 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("StudentGradeDetailsHistory")]
 public partial class StudentGradeDetailsHistory
 {
-    public Guid StugradehId { get; set; }
+    [Key]
+    public int STUGRADEH_ID { get; set; }
 
-    public int StugradehStugradeId { get; set; }
+    public int STUGRADEH_STUGRADE_ID { get; set; }
 
-    public Guid StugradehStuGuid { get; set; }
+    public Guid STUGRADEH_STU_GUID { get; set; }
 
-    public int StugradehScholasticCatId { get; set; }
+    public int STUGRADEH_SCHOLASTIC_CAT_ID { get; set; }
 
-    public string? StugradehQ1Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_Q1_GRADE { get; set; }
 
-    public string? StugradehQ2Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_Q2_GRADE { get; set; }
 
-    public string? StugradehQ3Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_Q3_GRADE { get; set; }
 
-    public string? StugradehFa1Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_FA1_GRADE { get; set; }
 
-    public string? StugradehFa2Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_FA2_GRADE { get; set; }
 
-    public string? StugradehFa3Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_FA3_GRADE { get; set; }
 
-    public string? StugradehFa4Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_FA4_GRADE { get; set; }
 
-    public string? StugradehSa1Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_SA1_GRADE { get; set; }
 
-    public string? StugradehSa2Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STUGRADEH_SA2_GRADE { get; set; }
 
-    public int StugradehCmId { get; set; }
+    public int STUGRADEH_CM_ID { get; set; }
 
-    public int StugradehSecId { get; set; }
+    public int STUGRADEH_SEC_ID { get; set; }
 
-    public int StugradehCmpId { get; set; }
+    public int STUGRADEH_CMP_ID { get; set; }
 
-    public int StugradehSchId { get; set; }
+    public int STUGRADEH_SCH_ID { get; set; }
 
-    public bool? StugradehIsActive { get; set; }
+    public bool? STUGRADEH_IS_ACTIVE { get; set; }
 
-    public string? StugradehSession { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUGRADEH_SESSION { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

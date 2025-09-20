@@ -1,39 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
-public partial class SmstaskSchedule
+[Table("SMSTaskSchedule")]
+public partial class SMSTaskSchedule
 {
-    public Guid StsScheduleId { get; set; }
+    [Key]
+    public int STS_SCHEDULE_ID { get; set; }
 
-    public int StsScheduleTaskId { get; set; }
+    public int STS_SCHEDULE_TASK_ID { get; set; }
 
-    public bool StsScheduleSunday { get; set; }
+    public bool STS_SCHEDULE_SUNDAY { get; set; }
 
-    public bool StsScheduleMonday { get; set; }
+    public bool STS_SCHEDULE_MONDAY { get; set; }
 
-    public bool StsScheduleTuesday { get; set; }
+    public bool STS_SCHEDULE_TUESDAY { get; set; }
 
-    public bool StsScheduleWednesday { get; set; }
+    public bool STS_SCHEDULE_WEDNESDAY { get; set; }
 
-    public bool StsScheduleThrusday { get; set; }
+    public bool STS_SCHEDULE_THRUSDAY { get; set; }
 
-    public bool StsScheduleFriday { get; set; }
+    public bool STS_SCHEDULE_FRIDAY { get; set; }
 
-    public bool StsScheduleSaturday { get; set; }
+    public bool STS_SCHEDULE_SATURDAY { get; set; }
 
-    public DateTime? StsScheduleStarttime { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? STS_SCHEDULE_STARTTIME { get; set; }
 
-    public int StsCmpId { get; set; }
+    public int STS_CMP_ID { get; set; }
 
-    public int StsSchId { get; set; }
+    public int STS_SCH_ID { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
+
+    [ForeignKey("STS_SCHEDULE_TASK_ID")]
+    [InverseProperty("SMSTaskSchedules")]
+    public virtual SMSTask STS_SCHEDULE_TASK { get; set; }
 }

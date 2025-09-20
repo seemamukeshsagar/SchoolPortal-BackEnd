@@ -1,63 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class EmpLeaveAvailDetail
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int EMPLAD_ID { get; set; }
 
-    public int EmployeeId { get; set; }
+    public int EMPLAD_EMP_ID { get; set; }
 
-    public int LeaveTypeId { get; set; }
+    public int EMPLAD_LEAVE_TYPE_ID { get; set; }
 
-    public DateTime ApplyDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime EMPLAD_APPLY_DATE { get; set; }
 
-    public DateTime StartDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime EMPLAD_START_DATE { get; set; }
 
-    public DateTime EndDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime EMPLAD_END_DATE { get; set; }
 
-    public decimal? TotalDays { get; set; }
+    [Column(TypeName = "decimal(18, 1)")]
+    public decimal? EMPLAD_TOTAL_DAYS { get; set; }
 
-    public bool IsHalfDay { get; set; }
+    public bool EMPLAD_IS_HALF_DAY { get; set; }
 
-    public string? LeaveReason { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string EMPLAD_REASON { get; set; }
 
-    public string? Address1 { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string EMPLAD_ADDRESS { get; set; }
 
-    public string? Address2 { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMPLAD_CONTACT_NUMBER { get; set; }
 
-    public Guid CityId { get; set; }
+    public int EMPLAD_STATUS_ID { get; set; }
 
-    public Guid StateId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMPLAD_SESSION { get; set; }
 
-    public Guid CountryId { get; set; }
+    public int EMPLAD_CMP_ID { get; set; }
 
-    public string? ZipCode { get; set; }
+    public int EMPLAD_SCH_ID { get; set; }
 
-    public string? ContactNumber { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public int StatusId { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string? Session { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public Guid CompanyId { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public Guid SchoolId { get; set; }
+    [ForeignKey("EMPLAD_EMP_ID")]
+    [InverseProperty("EmpLeaveAvailDetails")]
+    public virtual EmpMaster EMPLAD_EMP { get; set; }
 
-    public bool IsActive { get; set; }
-
-    public bool IsDeleted { get; set; }
-
-    public Guid? CreatedBy { get; set; }
-
-    public DateTime CreatedDate { get; set; }
-
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [ForeignKey("EMPLAD_STATUS_ID")]
+    [InverseProperty("EmpLeaveAvailDetails")]
+    public virtual LeaveStatusMaster EMPLAD_STATUS { get; set; }
 }

@@ -1,141 +1,265 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("EmpMaster")]
 public partial class EmpMaster
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int EMP_ID { get; set; }
 
-    public string? FirstName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_FIRST_NAME { get; set; }
 
-    public string? LastName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_LAST_NAME { get; set; }
 
-    public DateTime Dob { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime EMP_DOB { get; set; }
 
-    public DateTime Doj { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime EMP_DOJ { get; set; }
 
-    public DateTime? ProbationStartDate { get; set; }
+    public int? EMP_PROBATION_PERIOD { get; set; }
 
-    public int? ProbationPeriod { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? EMP_CONFIRMATION_DATE { get; set; }
 
-    public DateTime? ConfirmationDate { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_PAN_NUMBER { get; set; }
 
-    public string? Pannumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_ESIC_NUMBER { get; set; }
 
-    public string? Esicnumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_PF_NUMBER { get; set; }
 
-    public string? Pfnumeber { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string EMP_CURRENT_ADDRESS { get; set; }
 
-    public string? CurrentAddress1 { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string EMP_PERMANENT_ADDRESS { get; set; }
 
-    public string? CurrentAddress2 { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_CURRENT_CITY { get; set; }
 
-    public Guid? CurrentCity { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_CURRENT_STATE { get; set; }
 
-    public Guid? CurrentState { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_PERMANENT_CITY { get; set; }
 
-    public Guid? CurrentCountry { get; set; }
+    [StringLength(10)]
+    public string EMP_PERMANENT_STATE { get; set; }
 
-    public string? CurrentZipCode { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_PHONE { get; set; }
 
-    public string? PermanentAddress1 { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_MOBILE { get; set; }
 
-    public string? PermanentAddress2 { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string EMP_EMAIL { get; set; }
 
-    public Guid? PermanentCity { get; set; }
+    public int EMP_DEPT_ID { get; set; }
 
-    public Guid? PermanentState { get; set; }
+    public int EMP_DESIG_ID { get; set; }
 
-    public Guid? PermanentCountry { get; set; }
+    public int? EMP_PAYMENT_MODE_ID { get; set; }
 
-    public string? PermanentZipCode { get; set; }
+    public int EMP_TYPE_ID { get; set; }
 
-    public string? PhoneNumber { get; set; }
+    public int EMP_CAT_ID { get; set; }
 
-    public string? MobileNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_BANK_ACCOUNT_NUMBER { get; set; }
 
-    public string? EmailId { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string EMP_BANK_NAME { get; set; }
 
-    public Guid? DepartmentId { get; set; }
+    public int EMP_SCH_ID { get; set; }
 
-    public Guid? DesignationId { get; set; }
+    public int EMP_CMP_ID { get; set; }
 
-    public Guid? PaymentModeId { get; set; }
+    public bool EMP_IS_ACTIVE { get; set; }
 
-    public Guid? EmployeeTypeId { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string EMP_GENDER { get; set; }
 
-    public Guid? CategoryId { get; set; }
+    public int? EMP_BLOOD_GROUP_ID { get; set; }
 
-    public string? BankAccountNumber { get; set; }
+    public int EMP_GRADE_ID { get; set; }
 
-    public string? BankName { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string EMP_IMAGE { get; set; }
 
-    public string? Gender { get; set; }
+    [StringLength(20)]
+    [Unicode(false)]
+    public string EMP_CURRENT_ZIPCODE { get; set; }
 
-    public Guid? BloodGroupId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_CURRENT_COUNTRY { get; set; }
 
-    public Guid? GradeId { get; set; }
+    [StringLength(20)]
+    [Unicode(false)]
+    public string EMP_PERMANENT_ZIPCODE { get; set; }
 
-    public string? Image { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_PERMANENT_COUNTRY { get; set; }
 
-    public Guid? EmployeeOldId { get; set; }
+    public int? EMP_OLD_ID { get; set; }
 
-    public string? FathersName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string EMP_FATHERS_NAME { get; set; }
 
-    public string? MothersName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string EMP_DESCRIPTION { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_LICENCE_NUMBER { get; set; }
 
-    public string? LicenceNumber { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? EMP_LICENCE_ISSUE_DATE { get; set; }
 
-    public DateTime? LicenceIssueDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? EMP_LICENCE_VALID_DATE { get; set; }
 
-    public DateTime? LicenceValidUpto { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string EMP_LICENCE_DESCRIPTION { get; set; }
 
-    public string? LicenceDescription { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string EMP_LICENCE_IMAGE { get; set; }
 
-    public string? LicenceImage { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_LICENCE_TYPE { get; set; }
 
-    public string? LicenceType { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string EMP_SALUTATION { get; set; }
 
-    public string? Salutation { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? EMP_DATE_OF_LEAVING { get; set; }
 
-    public DateTime? DateOfLeaving { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string EMP_MARTIAL_STATUS { get; set; }
 
-    public string? MaritalStatus { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_YEARS_OF_EXPERIECNE { get; set; }
 
-    public string? EarsOfExperience { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string EMP_PREVIOUS_SCHOOL_COMPANY { get; set; }
 
-    public string? PrevioudSchoolCompany { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_AADHAR_NUMBER { get; set; }
 
-    public string? AadhaarNumber { get; set; }
+    public int? EMP_CATEGORY_ID { get; set; }
 
-    public int? EmployeeCatgoryId { get; set; }
+    public int? EMP_MATHS_UPTO_CLASS { get; set; }
 
-    public int? MathUpToClass { get; set; }
+    public int? EMP_ENGLISH_UPTO_CLASS { get; set; }
 
-    public int? EnglishUptoClass { get; set; }
+    public int? EMP_SST_UPTO_CLASS { get; set; }
 
-    public int? SstuptoClass { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public Guid CompanyId { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid SchoolId { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public bool IsActive { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [ForeignKey("EMP_CAT_ID")]
+    [InverseProperty("EmpMasters")]
+    public virtual EmpCategoryMaster EMP_CAT { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [ForeignKey("EMP_PAYMENT_MODE_ID")]
+    [InverseProperty("EmpMasters")]
+    public virtual PaymentModeMaster EMP_PAYMENT_MODE { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [ForeignKey("EMP_TYPE_ID")]
+    [InverseProperty("EmpMasters")]
+    public virtual EmpTypeMaster EMP_TYPE { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
+    [InverseProperty("EMP_ATTEND_EMP")]
+    public virtual ICollection<EmpAttendanceDetail> EmpAttendanceDetails { get; set; } = new List<EmpAttendanceDetail>();
 
-    public DateTime? ModifiedDate { get; set; }
+    [InverseProperty("EMP_ATTENDH_EMP")]
+    public virtual ICollection<EmpAttendanceDetailsHistory> EmpAttendanceDetailsHistories { get; set; } = new List<EmpAttendanceDetailsHistory>();
 
-    public string? Status { get; set; }
+    [InverseProperty("EDOC_EMP")]
+    public virtual ICollection<EmpDocumentDetail> EmpDocumentDetails { get; set; } = new List<EmpDocumentDetail>();
 
-    public string? StatusMessage { get; set; }
+    [InverseProperty("EMPLAD_EMP")]
+    public virtual ICollection<EmpLeaveAvailDetail> EmpLeaveAvailDetails { get; set; } = new List<EmpLeaveAvailDetail>();
+
+    [InverseProperty("EMPLD_EMP")]
+    public virtual ICollection<EmpLeaveDetail> EmpLeaveDetails { get; set; } = new List<EmpLeaveDetail>();
+
+    [InverseProperty("EMPLDH_EMP")]
+    public virtual ICollection<EmpLeaveDetailsHistory> EmpLeaveDetailsHistories { get; set; } = new List<EmpLeaveDetailsHistory>();
+
+    [InverseProperty("EPQUALD_EMP")]
+    public virtual ICollection<EmpProfQualiDetail> EmpProfQualiDetails { get; set; } = new List<EmpProfQualiDetail>();
+
+    [InverseProperty("ESSD_EMP")]
+    public virtual ICollection<EmpSalaryStructureDetail> EmpSalaryStructureDetails { get; set; } = new List<EmpSalaryStructureDetail>();
+
+    [InverseProperty("ESSDH_EMP")]
+    public virtual ICollection<EmpSalaryStructureDetailsHistory> EmpSalaryStructureDetailsHistories { get; set; } = new List<EmpSalaryStructureDetailsHistory>();
+
+    [InverseProperty("TTDETAILH_TEACHER")]
+    public virtual ICollection<TimeTableDetailsHistory> TimeTableDetailsHistories { get; set; } = new List<TimeTableDetailsHistory>();
+
+    [InverseProperty("TTSUBSD_TEACHER_ID_NEWNavigation")]
+    public virtual ICollection<TimeTableSubstitutionDetail> TimeTableSubstitutionDetailTTSUBSD_TEACHER_ID_NEWNavigations { get; set; } = new List<TimeTableSubstitutionDetail>();
+
+    [InverseProperty("TTSUBSD_TEACHER")]
+    public virtual ICollection<TimeTableSubstitutionDetail> TimeTableSubstitutionDetailTTSUBSD_TEACHERs { get; set; } = new List<TimeTableSubstitutionDetail>();
+
+    [InverseProperty("TTSUBSDH_TEACHER_ID_NEWNavigation")]
+    public virtual ICollection<TimeTableSubstitutionDetailsHistory> TimeTableSubstitutionDetailsHistoryTTSUBSDH_TEACHER_ID_NEWNavigations { get; set; } = new List<TimeTableSubstitutionDetailsHistory>();
+
+    [InverseProperty("TTSUBSDH_TEACHER")]
+    public virtual ICollection<TimeTableSubstitutionDetailsHistory> TimeTableSubstitutionDetailsHistoryTTSUBSDH_TEACHERs { get; set; } = new List<TimeTableSubstitutionDetailsHistory>();
 }

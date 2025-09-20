@@ -1,29 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("RegistrationMaster")]
 public partial class RegistrationMaster
 {
+    [Key]
     public Guid Id { get; set; }
 
-    public string? RegistrationNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string RegistrationNumber { get; set; }
 
-    public string? FirstName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string FirstName { get; set; }
 
-    public string? LastName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string LastName { get; set; }
 
-    public DateTime Dob { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime DOB { get; set; }
 
+    [Column(TypeName = "decimal(18, 2)")]
     public decimal Age { get; set; }
 
     public Guid ClassMasterId { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime Date { get; set; }
 
     public Guid SessionId { get; set; }
 
-    public string? Address { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string Address { get; set; }
 
     public Guid CityId { get; set; }
 
@@ -31,13 +47,21 @@ public partial class RegistrationMaster
 
     public Guid CountryId { get; set; }
 
-    public string? ZipCode { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ZipCode { get; set; }
 
-    public string? ContactNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ContactNumber { get; set; }
 
-    public string? Email { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string Email { get; set; }
 
-    public string? Phone { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Phone { get; set; }
 
     public Guid ReligionId { get; set; }
 
@@ -47,59 +71,88 @@ public partial class RegistrationMaster
 
     public Guid BloodGroupId { get; set; }
 
+    [Column(TypeName = "decimal(18, 2)")]
     public decimal? RegistrationFees { get; set; }
 
     public bool? RegistrationFeesPaid { get; set; }
 
-    public string? SiblingsIfAny { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string SiblingsIfAny { get; set; }
 
     public Guid SiblingClassMasterId { get; set; }
 
-    public string? FathersFirstName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string FathersFirstName { get; set; }
 
-    public string? FathersLastName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string FathersLastName { get; set; }
 
-    public DateTime? FathersDob { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? FathersDOB { get; set; }
 
     public Guid FathersQualificationId { get; set; }
 
-    public string? FathersOccupation { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string FathersOccupation { get; set; }
 
     public Guid FathersDesignationId { get; set; }
 
+    [Column(TypeName = "decimal(18, 2)")]
     public decimal? FathersAnnualIncome { get; set; }
 
-    public string? MothersFirstName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MothersFirstName { get; set; }
 
-    public string? MothersLastName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MothersLastName { get; set; }
 
-    public DateTime? MothersDob { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? MothersDOB { get; set; }
 
     public Guid MothersQualificationId { get; set; }
 
-    public string? MothersOccupation { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MothersOccupation { get; set; }
 
     public Guid MothersDesignationId { get; set; }
 
+    [Column(TypeName = "decimal(18, 2)")]
     public decimal? MothersAnnualIncome { get; set; }
 
-    public string? BirthCertificate { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string BirthCertificate { get; set; }
 
     public bool? BirthCertificateSubmitted { get; set; }
 
-    public string? TransferCertificate { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string TransferCertificate { get; set; }
 
     public bool? TransferCertificateSubmitted { get; set; }
 
-    public string? ReportCardLastClass { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string ReportCardLastClass { get; set; }
 
     public bool? ReportCardSubmitted { get; set; }
 
-    public string? OtherCertificateName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string OtherCertificateName { get; set; }
 
     public bool? OtherCertificateSubmitted { get; set; }
 
-    public string? OtherDescription { get; set; }
+    [StringLength(500)]
+    [Unicode(false)]
+    public string OtherDescription { get; set; }
 
     public bool? IsAdmissionConfirmed { get; set; }
 
@@ -115,13 +168,18 @@ public partial class RegistrationMaster
 
     public Guid? CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string? Status { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(255)]
+    public string StatusMessage { get; set; }
 }

@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("BookCategoryMaster")]
 public partial class BookCategoryMaster
 {
+    [Key]
     public Guid Id { get; set; }
 
-    public string? Name { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Name { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string Description { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -25,9 +34,13 @@ public partial class BookCategoryMaster
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string? Status { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(255)]
+    public string StatusMessage { get; set; }
 }

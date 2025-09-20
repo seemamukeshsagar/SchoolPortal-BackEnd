@@ -1,45 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("VehicleMaster")]
 public partial class VehicleMaster
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int VEH_ID { get; set; }
 
-    public string? VehicleNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VEH_NUMBER { get; set; }
 
-    public string? VehicleModel { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VEH_MODEL { get; set; }
 
-    public string? VehicleMake { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VEH_MAKE { get; set; }
 
-    public Guid VehicleTypeId { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VEH_TYPE { get; set; }
 
-    public string? RegistrationNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VEH_REGISTRATION { get; set; }
 
-    public string? InsuranceCompany { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VEH_INSURANCE_COMPANY { get; set; }
 
-    public decimal? InsurancePremium { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? VEH_INSURANCE_PREMIUM { get; set; }
 
-    public int? SeatingCapacity { get; set; }
+    public int? VEH_SEAT_CAPACITY { get; set; }
 
-    public Guid? CompanyId { get; set; }
+    public bool VEH_IS_ACTIVE { get; set; }
 
-    public Guid? SchoolId { get; set; }
+    public int VEH_CMP_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    public int VEH_SCH_ID { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public DateTime? ModifiedDate { get; set; }
+    [InverseProperty("BILL_VEHICLE")]
+    public virtual ICollection<BillMaster> BillMasters { get; set; } = new List<BillMaster>();
 
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [InverseProperty("VEHEXP_VEHICEL")]
+    public virtual ICollection<VehicleExpenseDetail> VehicleExpenseDetails { get; set; } = new List<VehicleExpenseDetail>();
 }

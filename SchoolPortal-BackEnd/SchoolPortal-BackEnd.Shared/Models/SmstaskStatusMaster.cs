@@ -1,25 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
-public partial class SmstaskStatusMaster
+[Table("SMSTaskStatusMaster")]
+public partial class SMSTaskStatusMaster
 {
-    public Guid StssmId { get; set; }
+    [Key]
+    public int STSSM_ID { get; set; }
 
-    public string? StssmName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STSSM_NAME { get; set; }
 
-    public bool? StssmIsActive { get; set; }
+    public bool? STSSM_IS_ACTIVE { get; set; }
 
-    public int StssmCmpId { get; set; }
+    public int STSSM_CMP_ID { get; set; }
 
-    public int StssmSchId { get; set; }
+    public int STSSM_SCH_ID { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

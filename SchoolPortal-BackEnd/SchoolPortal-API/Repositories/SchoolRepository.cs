@@ -11,7 +11,7 @@ namespace SchoolPortal_API.Repositories
 {
     public class SchoolRepository : Repository<SchoolMaster>, ISchoolRepository
     {
-        public SchoolRepository(SchoolPortalContext context) : base(context)
+        public SchoolRepository(SchoolNewPortalContext context) : base(context)
         {
         }
 

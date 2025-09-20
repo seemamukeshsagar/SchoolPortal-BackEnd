@@ -1,51 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("VendorMaster")]
 public partial class VendorMaster
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int VENDOR_ID { get; set; }
 
-    public string? VendorName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VENDOR_NAME { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string VENDOR_DESC { get; set; }
 
-    public string? Address1 { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string VENDOR_ADDRESS { get; set; }
 
-    public string? Address2 { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VENDOR_CITY { get; set; }
 
-    public Guid CityId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VENDOR_STATE { get; set; }
 
-    public Guid StateId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VENDOR_ZIPCODE { get; set; }
 
-    public Guid CountryId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VENDOR_PHONE { get; set; }
 
-    public string? ZipCode { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VENDOR_MOBILE_PHONE { get; set; }
 
-    public string? ContactNumber { get; set; }
+    public bool VENDOR_IS_ACTIVE { get; set; }
 
-    public string? MobileNumber { get; set; }
+    public int VENDOR_CMP_ID { get; set; }
 
-    public string? EmailId { get; set; }
+    public int VENDOR_SCH_ID { get; set; }
 
-    public Guid? CompanyId { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VENDOR_EMAIL { get; set; }
 
-    public Guid? SchoolId { get; set; }
+    public int? VENDOR_CITY_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    public int? VENDOR_STATE_ID { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [InverseProperty("BILL_VENDOR")]
+    public virtual ICollection<BillMaster> BillMasters { get; set; } = new List<BillMaster>();
 }

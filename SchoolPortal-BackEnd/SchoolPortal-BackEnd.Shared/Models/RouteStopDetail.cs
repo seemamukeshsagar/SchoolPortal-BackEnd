@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class RouteStopDetail
 {
+    [Key]
     public Guid RouteStopId { get; set; }
 
     public Guid RouteStopRouteDetailId { get; set; }
@@ -15,12 +19,20 @@ public partial class RouteStopDetail
 
     public int RouteStopNumber { get; set; }
 
-    public string RouteStopPickupTime { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string RouteStopPickupTime { get; set; }
 
-    public string RouteStopDropTime { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string RouteStopDropTime { get; set; }
 
+    [Column(TypeName = "decimal(18, 2)")]
     public decimal? RouteStopOneWayMonthlyFee { get; set; }
 
+    [Column(TypeName = "decimal(18, 2)")]
     public decimal? RouteStopTwoWayMonthlyFee { get; set; }
 
     public Guid RouteStopCompanyMasterId { get; set; }
@@ -33,13 +45,20 @@ public partial class RouteStopDetail
 
     public Guid CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string Status { get; set; } = null!;
+    [Required]
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string StatusMessage { get; set; }
 }

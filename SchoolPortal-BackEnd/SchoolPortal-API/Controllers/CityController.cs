@@ -128,7 +128,7 @@ namespace SchoolPortal_API.Controllers
                 
                 if (!_cache.TryGetValue(cacheKey, out IEnumerable<CityResponseDto> cities))
                 {
-cities = await _cityService.GetCitiesByStateIdAsync(stateId, includeInactive);
+                    cities = await _cityService.GetCitiesByStateIdAsync(stateId, includeInactive);
                     
                     var cacheOptions = new MemoryCacheEntryOptions()
                         .SetSlidingExpiration(TimeSpan.FromHours(1));
@@ -160,7 +160,7 @@ cities = await _cityService.GetCitiesByStateIdAsync(stateId, includeInactive);
                 
                 if (!_cache.TryGetValue(cacheKey, out IEnumerable<CityResponseDto> cities))
                 {
-cities = await _cityService.GetCitiesByCountryIdAsync(countryId, includeInactive);
+                    cities = await _cityService.GetCitiesByCountryIdAsync(countryId, includeInactive);
                     
                     var cacheOptions = new MemoryCacheEntryOptions()
                         .SetSlidingExpiration(TimeSpan.FromHours(1));
@@ -193,7 +193,7 @@ cities = await _cityService.GetCitiesByCountryIdAsync(countryId, includeInactive
                 
                 if (!_cache.TryGetValue(cacheKey, out CityResponseDto city))
                 {
-city = await _cityService.GetCityByIdAsync(id);
+                    city = await _cityService.GetCityByIdAsync(id);
                     
                     if (city == null)
                     {

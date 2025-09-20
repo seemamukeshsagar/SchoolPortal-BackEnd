@@ -1,45 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("EmpSalaryStructureDetailsHistory")]
 public partial class EmpSalaryStructureDetailsHistory
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int ESSDH_ID { get; set; }
 
-    public Guid EmployeeId { get; set; }
+    public int ESSDH_EMP_ID { get; set; }
 
-    public Guid DesignationGradeId { get; set; }
+    public int ESSDH_SALHM_ID { get; set; }
 
-    public string? Session { get; set; }
+    public int ESSDH_DESGRADE_ID { get; set; }
 
-    public decimal? Value { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ESSDH_SESSION { get; set; }
 
-    public string SalaryType { get; set; } = null!;
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? ESSDH_VALUE { get; set; }
 
-    public bool IsDeductance { get; set; }
+    public bool ESSDH_IS_ACTIVE { get; set; }
 
-    public string? SalaryCode { get; set; }
+    [Required]
+    [StringLength(10)]
+    [Unicode(false)]
+    public string ESSDH_SALARY_TYPE { get; set; }
 
-    public string? Description { get; set; }
+    public bool ESSDH_IS_DEDUCTANCE { get; set; }
 
-    public Guid CompanyId { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string ESSDH_SALH_CODE { get; set; }
 
-    public Guid SchoolId { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string ESDDH_SALH_DESCRIPTION { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool? ESDDH_SALH_IS_READONLY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public int ESDDH_CMP_ID { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    public int ESDDH_SCH_ID { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public DateTime? ModifiedDate { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public string? Status { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [ForeignKey("ESSDH_EMP_ID")]
+    [InverseProperty("EmpSalaryStructureDetailsHistories")]
+    public virtual EmpMaster ESSDH_EMP { get; set; }
 }

@@ -1,25 +1,47 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class TeacherSectionDetail
 {
+    [Key]
     public Guid Id { get; set; }
 
     public Guid TeacherId { get; set; }
+    
+    [ForeignKey("TeacherId")]
+    public virtual TeacherMaster Teacher { get; set; }
 
     public Guid ClassId { get; set; }
+    
+    [ForeignKey("ClassId")]
+    public virtual ClassMaster Class { get; set; }
 
     public Guid SectionId { get; set; }
+    
+    [ForeignKey("SectionId")]
+    public virtual SectionMaster Section { get; set; }
 
     public Guid SubjectId { get; set; }
+    
+    [ForeignKey("SubjectId")]
+    public virtual SubjectMaster Subject { get; set; }
 
     public bool IsClassTeacher { get; set; }
 
     public Guid SchoolId { get; set; }
+    
+    [ForeignKey("SchoolId")]
+    public virtual SchoolMaster School { get; set; }
 
     public Guid CompanyId { get; set; }
+    
+    [ForeignKey("CompanyId")]
+    public virtual CompanyMaster Company { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -27,13 +49,18 @@ public partial class TeacherSectionDetail
 
     public Guid? CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string? Status { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(255)]
+    public string StatusMessage { get; set; }
 }

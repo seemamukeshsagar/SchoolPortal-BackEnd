@@ -1,14 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("CityMaster")]
 public partial class CityMaster
 {
+    [Key]
     public Guid Id { get; set; }
 
-    public string? CityName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string CityName { get; set; }
 
     public Guid CityStateId { get; set; }
 
@@ -18,35 +24,34 @@ public partial class CityMaster
 
     public Guid? CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string Status { get; set; } = null!;
+    [Required]
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string StatusMessage { get; set; }
 
-    [InverseProperty("JudistrictionArea")]
-    public virtual ICollection<CompanyMaster> CompanyMasterJudistrictionAreaNavigations { get; set; } = new List<CompanyMaster>();
+    [ForeignKey("CityStateId")]
+    [InverseProperty("CityMasters")]
+    public virtual StateMaster CityState { get; set; }
+
+    // Added to align with repository usage (CityStateNavigation)
+    [ForeignKey("CityStateId")]
+    public virtual StateMaster CityStateNavigation { get; set; }
 
     [InverseProperty("City")]
     public virtual ICollection<CompanyMaster> CompanyMasterCities { get; set; } = new List<CompanyMaster>();
-    
-    [InverseProperty("CityState")]
-    public virtual StateMaster CityStateNavigation { get; set; } = null!;
 
-    // Navigation properties for SchoolMaster relationships
-    [InverseProperty("CityNavigation")]
-    public virtual ICollection<SchoolMaster> SchoolMasterCities { get; set; } = new List<SchoolMaster>();
-    
-    [InverseProperty("JudistrictionCityNavigation")]
-    public virtual ICollection<SchoolMaster> SchoolMasterJudistrictionCities { get; set; } = new List<SchoolMaster>();
-    
-    [InverseProperty("BankCityNavigation")]
-    public virtual ICollection<SchoolMaster> SchoolMasterBankCities { get; set; } = new List<SchoolMaster>();
-    
-    [InverseProperty("City")]
-    public virtual StateMaster CityState { get; set; } = null!;
+    [InverseProperty("JudistrictionAreaNavigation")]
+    public virtual ICollection<CompanyMaster> CompanyMasterJudistrictionAreaNavigations { get; set; } = new List<CompanyMaster>();
 }

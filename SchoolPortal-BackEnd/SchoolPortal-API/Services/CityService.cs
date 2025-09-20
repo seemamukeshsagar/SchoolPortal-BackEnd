@@ -4,7 +4,6 @@ using SchoolPortal_API.Interfaces;
 using SchoolPortal_API.Models;
 using SchoolPortal_API.ViewModels.City;
 using SchoolPortal.Shared.Models;
-using SchoolPortal_API.Models; // For PaginatedResponse
 using System;
 using System.Collections.Generic;
 using System.Linq;

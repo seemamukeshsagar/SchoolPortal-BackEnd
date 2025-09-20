@@ -1,41 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class VehicleExpenseDetail
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int VEHEXP_ID { get; set; }
 
-    public int VehicleId { get; set; }
+    public int VEHEXP_VEHICEL_ID { get; set; }
 
-    public Guid VehicleTypeId { get; set; }
+    public int VEHEXP_TYPE_ID { get; set; }
 
-    public string? Name { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VEHEXP_NAME { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string VEHEXP_DESC { get; set; }
 
-    public DateTime? ExpenseDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? VEHEXP_DATE { get; set; }
 
-    public decimal? ExpenseAmount { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? VEHEXP_AMOUNT { get; set; }
 
-    public Guid? CompanyId { get; set; }
+    public int VEHEXP_CMP_ID { get; set; }
 
-    public Guid? SchoolId { get; set; }
+    public int VEHEXP_SCH_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [ForeignKey("VEHEXP_VEHICEL_ID")]
+    [InverseProperty("VehicleExpenseDetails")]
+    public virtual VehicleMaster VEHEXP_VEHICEL { get; set; }
 }

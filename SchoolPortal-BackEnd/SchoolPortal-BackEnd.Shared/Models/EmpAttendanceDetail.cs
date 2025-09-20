@@ -1,45 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class EmpAttendanceDetail
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int EMP_ATTEND_ID { get; set; }
 
-    public int EmployeeId { get; set; }
+    public int EMP_ATTEND_EMP_ID { get; set; }
 
-    public int? AttendenceMonth { get; set; }
+    public int? EMP_ATTEND_MONTH { get; set; }
 
-    public int? AttendenceYear { get; set; }
+    public int? EMP_ATTEND_YEAR { get; set; }
 
-    public DateTime AttendenceDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime EMP_ATTEND_DATE { get; set; }
 
-    public bool AttendenceMarked { get; set; }
+    public bool EMP_ATTEND_STATUS { get; set; }
 
-    public int? AttendenceLeaveId { get; set; }
+    public int? EMP_ATTEND_LEAVE_ID { get; set; }
 
-    public string? AttendenceTime { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string EMP_ATTEND_TIME { get; set; }
 
-    public bool? IsHalfDay { get; set; }
+    public int EMP_ATTEND_CMP_ID { get; set; }
 
-    public Guid CompanyId { get; set; }
+    public int EMP_ATTEND_SCH_ID { get; set; }
 
-    public Guid SchoolId { get; set; }
+    public bool? EMP_ATTEND_IS_HALF_DAY { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [ForeignKey("EMP_ATTEND_EMP_ID")]
+    [InverseProperty("EmpAttendanceDetails")]
+    public virtual EmpMaster EMP_ATTEND_EMP { get; set; }
 }

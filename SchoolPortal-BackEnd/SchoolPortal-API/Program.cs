@@ -19,7 +19,7 @@ builder.AddServiceDefaults();
 // Add services to the container.
 
 // Add DbContext
-builder.Services.AddDbContext<SchoolPortalContext>(options =>
+builder.Services.AddDbContext<SchoolNewPortalContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")),
     ServiceLifetime.Scoped);
 
@@ -42,6 +42,9 @@ builder.Services.AddScoped<ISchoolService, SchoolService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IStateService, StateService>();
 builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<IClassService, ClassService>();
+builder.Services.AddScoped<ISectionService, SectionService>();
+builder.Services.AddScoped<IClassSectionService, ClassSectionService>();
 
 // Add in-memory caching
 builder.Services.AddMemoryCache();

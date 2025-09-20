@@ -4,6 +4,9 @@ using SchoolPortal_API.ViewModels.Company;
 using SchoolPortal_API.ViewModels.Country;
 using SchoolPortal_API.ViewModels.State;
 using SchoolPortal_API.ViewModels.City;
+using SchoolPortal_API.ViewModels.Class;
+using SchoolPortal_API.ViewModels.Section;
+using SchoolPortal_API.ViewModels.ClassSection;
 
 namespace SchoolPortal_API.Mappings
 {
@@ -36,6 +39,20 @@ namespace SchoolPortal_API.Mappings
                 .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.CityStateNavigation.StateName))
                 .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.CityStateNavigation.Country.CountryName));
             CreateMap<CityDto, CityMaster>();
+
+            // Class mappings
+            CreateMap<ClassMaster, ClassResponseDto>();
+            CreateMap<ClassDto, ClassMaster>();
+
+            // Section mappings
+            CreateMap<SectionMaster, SectionResponseDto>();
+            CreateMap<SectionDto, SectionMaster>();
+
+            // ClassSection mappings
+            CreateMap<ClassSectionDetail, ClassSectionResponseDto>()
+                .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Class.Name))
+                .ForMember(dest => dest.SectionName, opt => opt.MapFrom(src => src.Section.Name));
+            CreateMap<ClassSectionDto, ClassSectionDetail>();
         }
     }
 }

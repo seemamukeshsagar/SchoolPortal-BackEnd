@@ -1,27 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("PaymentModeMaster")]
 public partial class PaymentModeMaster
 {
-    public Guid PaymentModeId { get; set; }
+    [Key]
+    public int PAYMENT_MODE_ID { get; set; }
 
-    public string? PaymentModeName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string PAYMENT_MODE_NAME { get; set; }
 
-    public string? PaymentModeDesc { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string PAYMENT_MODE_DESC { get; set; }
 
-    public int PaymentModeCmpId { get; set; }
+    public int PAYMENT_MODE_CMP_ID { get; set; }
 
-    public int PaymentModeSchId { get; set; }
+    public int PAYMENT_MODE_SCH_ID { get; set; }
 
-    public bool PaymentModeIsActive { get; set; }
+    public bool PAYMENT_MODE_IS_ACTIVE { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
+
+    [InverseProperty("EMP_PAYMENT_MODE")]
+    public virtual ICollection<EmpMaster> EmpMasters { get; set; } = new List<EmpMaster>();
 }

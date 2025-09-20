@@ -1,55 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("VisitorMaster")]
 public partial class VisitorMaster
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int VM_ID { get; set; }
 
-    public string? VehicleNumber { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VM_NUMBER { get; set; }
 
-    public string? VehicleName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string VM_NAME { get; set; }
 
-    public DateTime DateOfEntry { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime VM_DATE { get; set; }
 
-    public TimeOnly ArrivalTime { get; set; }
+    [Precision(0)]
+    public TimeOnly VM_TIME_OF_ARRIVAL { get; set; }
 
-    public TimeOnly ExitTime { get; set; }
+    [Precision(0)]
+    public TimeOnly VM_TIME_OF_EXIT { get; set; }
 
-    public string? Purpose { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string VM_PURPOSE { get; set; }
 
-    public string? ContactPerson { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string VM_CONTACT_PERSON { get; set; }
 
-    public string? Address1 { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string VM_ADDRESS { get; set; }
 
-    public string? Address2 { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string VM_CONTACT_NUMBER { get; set; }
 
-    public Guid CityId { get; set; }
+    public bool? VM_IS_ACTIVE { get; set; }
 
-    public Guid StateId { get; set; }
+    public int VM_CMP_ID { get; set; }
 
-    public Guid CountryId { get; set; }
+    public int VM_SCH_ID { get; set; }
 
-    public string? ZipCode { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public Guid? CompanyId { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? SchoolId { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public bool IsActive { get; set; }
-
-    public bool IsDeleted { get; set; }
-
-    public Guid? CreatedBy { get; set; }
-
-    public DateTime CreatedDate { get; set; }
-
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

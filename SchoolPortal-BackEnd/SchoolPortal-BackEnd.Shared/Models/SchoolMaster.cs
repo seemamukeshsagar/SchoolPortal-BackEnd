@@ -1,22 +1,36 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("SchoolMaster")]
 public partial class SchoolMaster
 {
+    [Key]
     public Guid Id { get; set; }
 
-    public string? Name { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Name { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string Description { get; set; }
 
-    public string? Email { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Email { get; set; }
 
-    public string? Address1 { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string Address1 { get; set; }
 
-    public string? Address2 { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string Address2 { get; set; }
 
     public Guid? CityId { get; set; }
 
@@ -24,13 +38,21 @@ public partial class SchoolMaster
 
     public Guid? CountryId { get; set; }
 
-    public string? ZipCode { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ZipCode { get; set; }
 
-    public string? Phone { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Phone { get; set; }
 
-    public string? EstablishmentYear { get; set; }
+    [StringLength(4)]
+    [Unicode(false)]
+    public string EstablishmentYear { get; set; }
 
-    public string? Mobile { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Mobile { get; set; }
 
     public Guid? JudistrictionCityId { get; set; }
 
@@ -38,11 +60,17 @@ public partial class SchoolMaster
 
     public Guid? JudistrictionCountryId { get; set; }
 
-    public string? BankName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string BankName { get; set; }
 
-    public string? BankAddress1 { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string BankAddress1 { get; set; }
 
-    public string? BankAddress2 { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string BankAddress2 { get; set; }
 
     public Guid? BankCityId { get; set; }
 
@@ -50,9 +78,13 @@ public partial class SchoolMaster
 
     public Guid? BankCountryId { get; set; }
 
-    public string? BankZipCode { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string BankZipCode { get; set; }
 
-    public string? AccountNumber { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string AccountNumber { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -62,83 +94,72 @@ public partial class SchoolMaster
 
     public Guid? CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string? Status { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string StatusMessage { get; set; }
 
-    public virtual CountryMaster? BankCountry { get; set; }
+    [ForeignKey("BankCountryId")]
+    [InverseProperty("SchoolMasterBankCountries")]
+    public virtual CountryMaster BankCountry { get; set; }
 
-    public virtual CompanyMaster Company { get; set; } = null!;
-
-    public virtual CountryMaster? Country { get; set; }
-
-    public virtual StateMaster? State { get; set; }
-
-    public virtual CityMaster? City { get; set; }
-
-    public virtual StateMaster? JudistrictionState { get; set; }
-
-    public virtual CityMaster? JudistrictionCity { get; set; }
-
-    public virtual StateMaster? BankState { get; set; }
-
-    public virtual CityMaster? BankCity { get; set; }
-
-    // Collection navigation properties are defined below with InverseProperty attributes
-
-    public virtual CountryMaster? JudistrictionCountry { get; set; }
-
-    // Navigation properties for CityMaster relationships
-    [ForeignKey("CityId")]
-    public virtual CityMaster? CityNavigation { get; set; }
-
-    [ForeignKey("JudistrictionCityId")]
-    public virtual CityMaster? JudistrictionCityNavigation { get; set; }
+    // Newly added navigation properties to align with repository usage
+    [ForeignKey("BankStateId")]
+    public virtual StateMaster BankState { get; set; }
 
     [ForeignKey("BankCityId")]
-    public virtual CityMaster? BankCityNavigation { get; set; }
-    
-    // Navigation properties for StateMaster relationships
-    [ForeignKey("StateId")]
-    public virtual StateMaster? StateNavigation { get; set; }
-    
-    [ForeignKey("JudistrictionStateId")]
-    public virtual StateMaster? JudistrictionStateNavigation { get; set; }
-    
-    [ForeignKey("BankStateId")]
-    public virtual StateMaster? BankStateNavigation { get; set; }
-    
-    // Navigation properties for CountryMaster relationships
+    public virtual CityMaster BankCity { get; set; }
+
+    [ForeignKey("CompanyId")]
+    [InverseProperty("SchoolMasters")]
+    public virtual CompanyMaster Company { get; set; }
+
     [ForeignKey("CountryId")]
-    public virtual CountryMaster? CountryNavigation { get; set; }
-    
+    [InverseProperty("SchoolMasterCountries")]
+    public virtual CountryMaster Country { get; set; }
+
+    [ForeignKey("StateId")]
+    public virtual StateMaster State { get; set; }
+
+    [ForeignKey("CityId")]
+    public virtual CityMaster City { get; set; }
+
+    [InverseProperty("School")]
+    public virtual ICollection<DeptDesigDetail> DeptDesigDetails { get; set; } = new List<DeptDesigDetail>();
+
+    [InverseProperty("School")]
+    public virtual ICollection<DeptMaster> DeptMasters { get; set; } = new List<DeptMaster>();
+
+    [InverseProperty("School")]
+    public virtual ICollection<DesigGradeDetail> DesigGradeDetails { get; set; } = new List<DesigGradeDetail>();
+
+    [InverseProperty("School")]
+    public virtual ICollection<DesigMaster> DesigMasters { get; set; } = new List<DesigMaster>();
+
     [ForeignKey("JudistrictionCountryId")]
-    public virtual CountryMaster? JudistrictionCountryNavigation { get; set; }
-    
-    [ForeignKey("BankCountryId")]
-    public virtual CountryMaster? BankCountryNavigation { get; set; }
+    [InverseProperty("SchoolMasterJudistrictionCountries")]
+    public virtual CountryMaster JudistrictionCountry { get; set; }
+
+    [ForeignKey("JudistrictionStateId")]
+    public virtual StateMaster JudistrictionState { get; set; }
+
+    [ForeignKey("JudistrictionCityId")]
+    public virtual CityMaster JudistrictionCity { get; set; }
 
     [InverseProperty("School")]
     public virtual ICollection<RoleMaster> RoleMasters { get; set; } = new List<RoleMaster>();
 
     [InverseProperty("School")]
     public virtual ICollection<UserDetail> UserDetails { get; set; } = new List<UserDetail>();
-
-    [InverseProperty("School")]
-    public virtual ICollection<DeptMaster> DeptMasters { get; set; } = new List<DeptMaster>();
-
-    [InverseProperty("School")]
-    public virtual ICollection<DesigMaster> DesigMasters { get; set; } = new List<DesigMaster>();
-
-    [InverseProperty("School")]
-    public virtual ICollection<DeptDesigDetail> DeptDesigDetails { get; set; } = new List<DeptDesigDetail>();
-
-    [InverseProperty("School")]
-    public virtual ICollection<DesigGradeDetail> DesigGradeDetails { get; set; } = new List<DesigGradeDetail>();
 }

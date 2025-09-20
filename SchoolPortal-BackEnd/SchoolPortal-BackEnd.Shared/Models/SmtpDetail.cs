@@ -1,37 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class SmtpDetail
 {
-    public Guid SmtpDetailId { get; set; }
+    [Key]
+    public int SMTP_DETAIL_ID { get; set; }
 
-    public string? SmtpDetailFromAddress { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string SMTP_DETAIL_FROM_ADDRESS { get; set; }
 
-    public string? SmtpDetailGateway { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string SMTP_DETAIL_GATEWAY { get; set; }
 
-    public string? SmtpDetailUsername { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string SMTP_DETAIL_USERNAME { get; set; }
 
-    public string? SmtpDetailPassword { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string SMTP_DETAIL_PASSWORD { get; set; }
 
-    public string? SmtpDetailSubject { get; set; }
+    [StringLength(6000)]
+    [Unicode(false)]
+    public string SMTP_DETAIL_SUBJECT { get; set; }
 
-    public string? SmtpDetailBodyText { get; set; }
+    [StringLength(6000)]
+    [Unicode(false)]
+    public string SMTP_DETAIL_BODY_TEXT { get; set; }
 
-    public string? SmtpDetailEmailType { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string SMTP_DETAIL_EMAIL_TYPE { get; set; }
 
-    public bool? SmtpDetailIsActive { get; set; }
+    public bool? SMTP_DETAIL_IS_ACTIVE { get; set; }
 
-    public int SmtpDetailCmpId { get; set; }
+    public int SMTP_DETAIL_CMP_ID { get; set; }
 
-    public int SmtpDetailSchId { get; set; }
+    public int SMTP_DETAIL_SCH_ID { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

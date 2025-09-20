@@ -1,45 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
-public partial class SmstaskHistory
+[Table("SMSTaskHistory")]
+public partial class SMSTaskHistory
 {
-    public Guid StshId { get; set; }
+    [Key]
+    public int STSH_ID { get; set; }
 
-    public int StshTaskId { get; set; }
+    public int STSH_TASK_ID { get; set; }
 
-    public DateTime StshSentDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime STSH_SENT_DATE { get; set; }
 
-    public int StshNotificationReceiverId { get; set; }
+    public int STSH_NOTIFICATION_RECEIVER_ID { get; set; }
 
-    public string? StshNotificationReceiver { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STSH_NOTIFICATION_RECEIVER { get; set; }
 
-    public string? StshSendType { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string STSH_SEND_TYPE { get; set; }
 
-    public string? StshStatus { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STSH_STATUS { get; set; }
 
-    public Guid? StshStuGuid { get; set; }
+    public Guid? STSH_STU_GUID { get; set; }
 
-    public int? StshParentId { get; set; }
+    public int? STSH_PARENT_ID { get; set; }
 
-    public int? StshTeacherId { get; set; }
+    public int? STSH_TEACHER_ID { get; set; }
 
-    public string? StshEmail { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string STSH_EMAIL { get; set; }
 
-    public string? StshPhone { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STSH_PHONE { get; set; }
 
-    public string? StshDescription { get; set; }
+    [StringLength(250)]
+    [Unicode(false)]
+    public string STSH_DESCRIPTION { get; set; }
 
-    public int StshCmpId { get; set; }
+    public int STSH_CMP_ID { get; set; }
 
-    public int StshSchId { get; set; }
+    public int STSH_SCH_ID { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

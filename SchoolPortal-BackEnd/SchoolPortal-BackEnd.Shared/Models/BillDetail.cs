@@ -1,39 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class BillDetail
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int BILL_DETAIL_ID { get; set; }
 
-    public Guid BillId { get; set; }
+    public int BILL_DETAIL_BILL_ID { get; set; }
 
-    public Guid ExpenseCatgeorrId { get; set; }
+    public int? BILL_DETAIL_EXP_CAT_ID { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string BILL_DETAIL_DESC { get; set; }
 
-    public int? Quantity { get; set; }
+    public int? BILL_DETAIL_QTY { get; set; }
 
-    public decimal? Ammount { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? BILL_DETAIL_AMOUNT { get; set; }
 
-    public Guid CompanyId { get; set; }
+    public int BILL_CMP_ID { get; set; }
 
-    public Guid SchoolId { get; set; }
+    public int BILL_SCH_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
-
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string Status { get; set; } = null!;
-
-    public string? StatusMessage { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

@@ -1,57 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("StudentReportCardDetailsHistory")]
 public partial class StudentReportCardDetailsHistory
 {
-    public Guid RepcardhDetailId { get; set; }
+    [Key]
+    public int REPCARDH_DETAIL_ID { get; set; }
 
-    public int RepcardhDetailRepcardId { get; set; }
+    public int REPCARDH_DETAIL_REPCARD_ID { get; set; }
 
-    public string? RepcardhDetailSubjectType { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string REPCARDH_DETAIL_SUBJECT_TYPE { get; set; }
 
-    public int? RepcardhDetailSubjectId { get; set; }
+    public int? REPCARDH_DETAIL_SUBJECT_ID { get; set; }
 
-    public decimal? RepcardhDetailQuarterMarks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_QUARTER_MARKS { get; set; }
 
-    public decimal? RepcardhDetailFa1Marks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_FA1_MARKS { get; set; }
 
-    public decimal? RepcardhDetailFa2Marks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_FA2_MARKS { get; set; }
 
-    public decimal? RepcardhDetailSaMarks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_SA_MARKS { get; set; }
 
-    public string? RepcardhDetailGrade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARDH_DETAIL_GRADE { get; set; }
 
-    public string? RepcardhDetailFa1Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARDH_DETAIL_FA1_GRADE { get; set; }
 
-    public string? RepcardhDetailFa2Grade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARDH_DETAIL_FA2_GRADE { get; set; }
 
-    public string? RepcardhDetailSaGrade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARDH_DETAIL_SA_GRADE { get; set; }
 
-    public decimal? RepcardhDetailTotalMarks { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_TOTAL_MARKS { get; set; }
 
-    public string? RepcardhDetailTotalGrade { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string REPCARDH_DETAIL_TOTAL_GRADE { get; set; }
 
-    public int? RepcardhDetailCmpId { get; set; }
+    public int? REPCARDH_DETAIL_CMP_ID { get; set; }
 
-    public int? RepcardhDetailSchId { get; set; }
+    public int? REPCARDH_DETAIL_SCH_ID { get; set; }
 
-    public decimal? RepcardhDetailTotalMarksQuarter { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_TOTAL_MARKS_QUARTER { get; set; }
 
-    public decimal? RepcardhDetailTotalMarksFa1 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_TOTAL_MARKS_FA1 { get; set; }
 
-    public decimal? RepcardhDetailTotalMarksFa2 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_TOTAL_MARKS_FA2 { get; set; }
 
-    public decimal? RepcardhDetailTotalMarksSa { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_TOTAL_MARKS_SA { get; set; }
 
-    public decimal? RepcardhDetailTotalMarksFinal { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? REPCARDH_DETAIL_TOTAL_MARKS_FINAL { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

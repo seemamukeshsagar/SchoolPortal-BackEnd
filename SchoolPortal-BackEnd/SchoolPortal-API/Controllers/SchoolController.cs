@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using SchoolPortal.Shared.Data;
 using SchoolPortal.Shared.Models;
 using SchoolPortal_API.Interfaces;
 using SchoolPortal_API.Models;
@@ -37,7 +36,7 @@ namespace SchoolPortal_API.Controllers
         private readonly ILogger<SchoolController> _logger;
         private readonly IMemoryCache _cache;
         private readonly IMapper _mapper;
-        private readonly SchoolPortalContext _context;
+        private readonly SchoolNewPortalContext _context;
 
         public SchoolController(
             ISchoolRepository schoolRepository, 
@@ -45,7 +44,7 @@ namespace SchoolPortal_API.Controllers
             ILogger<SchoolController> logger, 
             IMemoryCache cache,
             IMapper mapper,
-            SchoolPortalContext context)
+            SchoolNewPortalContext context)
         {
             _schoolRepository = schoolRepository ?? throw new ArgumentNullException(nameof(schoolRepository));
             _schoolService = schoolService ?? throw new ArgumentNullException(nameof(schoolService));

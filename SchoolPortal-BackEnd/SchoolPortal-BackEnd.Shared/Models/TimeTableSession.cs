@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class TimeTableSession
 {
+    [Key]
     public Guid Id { get; set; }
 
-    public string? TimeTableSessionName { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string TimeTableSessionName { get; set; }
 
-    public string? TimeTableSessionDescription { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string TimeTableSessionDescription { get; set; }
 
     public Guid CompanyId { get; set; }
 
@@ -21,17 +29,26 @@ public partial class TimeTableSession
 
     public Guid? CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string? Status { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(255)]
+    public string StatusMessage { get; set; }
 
-    public virtual UserDetail? CreatedByNavigation { get; set; }
+    [ForeignKey("CreatedBy")]
+    [InverseProperty("TimeTableSessionCreatedByNavigations")]
+    public virtual UserDetail CreatedByNavigation { get; set; }
 
-    public virtual UserDetail? ModifiedByNavigation { get; set; }
+    [ForeignKey("ModifiedBy")]
+    [InverseProperty("TimeTableSessionModifiedByNavigations")]
+    public virtual UserDetail ModifiedByNavigation { get; set; }
 }

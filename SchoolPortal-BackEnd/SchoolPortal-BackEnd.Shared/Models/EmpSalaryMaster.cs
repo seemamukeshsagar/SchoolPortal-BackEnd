@@ -1,67 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("EmpSalaryMaster")]
 public partial class EmpSalaryMaster
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int ESALM_ID { get; set; }
 
-    public int EmployeeId { get; set; }
+    public int ESALM_EMP_ID { get; set; }
 
-    public int Month { get; set; }
+    public int ESALM_MONTH { get; set; }
 
-    public int Year { get; set; }
+    public int ESALM_YEAR { get; set; }
 
-    public Guid SessionId { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ESALM_SESSION { get; set; }
 
-    public DateTime BatchPrintDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime ESALM_BATCHPRINT_DATE { get; set; }
 
-    public decimal? BasicSalary { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? ESALM_BASIC_SALARY { get; set; }
 
-    public decimal? Allowance { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? ESALM_ALLOWANCES { get; set; }
 
-    public decimal? Deductions { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? ESALM_DEDUCTIONS { get; set; }
 
-    public decimal? NetSalary { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? ESALM_NET_SALARY { get; set; }
 
-    public int TotalWorkingDays { get; set; }
+    public int ESALM_TOTAL_DAYS { get; set; }
 
-    public decimal? PresentDays { get; set; }
+    [Column(TypeName = "decimal(18, 1)")]
+    public decimal? ESALM_PRESENT_DAYS { get; set; }
 
-    public decimal? AbsentDays { get; set; }
+    [Column(TypeName = "decimal(18, 1)")]
+    public decimal? ESALM_ABSENT_DAYS { get; set; }
 
-    public decimal? LeaveDays { get; set; }
+    [Column(TypeName = "decimal(18, 1)")]
+    public decimal? ESALM_LEAVE_DAYS { get; set; }
 
-    public string? LeaveDescription { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string ESALM_LEAVE_DESC { get; set; }
 
-    public string? LeaveBalanceDescription { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string ESALM_LEAVE_BALANCE_DESC { get; set; }
 
-    public decimal? SalaryPerDay { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? ESALM_PER_DAY_SALARY { get; set; }
 
-    public Guid DepartmentId { get; set; }
+    public int? ESALM_DEPT_ID { get; set; }
 
-    public Guid DesignationId { get; set; }
+    public int? ESALM_DESIG_ID { get; set; }
 
-    public Guid GradeId { get; set; }
+    public int? ESALM_GRADE_ID { get; set; }
 
-    public Guid CompanyId { get; set; }
+    public int ESALM_CMP_ID { get; set; }
 
-    public Guid SchoolId { get; set; }
+    public int ESALM_SCH_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
-
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

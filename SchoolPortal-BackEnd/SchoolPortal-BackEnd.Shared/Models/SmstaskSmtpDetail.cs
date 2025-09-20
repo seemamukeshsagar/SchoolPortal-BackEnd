@@ -1,41 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
-public partial class SmstaskSmtpDetail
+public partial class SMSTaskSmtpDetail
 {
-    public Guid StssmtpDetailId { get; set; }
+    [Key]
+    public int STSSMTP_DETAIL_ID { get; set; }
 
-    public string? StssmtpDetailFromAddress { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string STSSMTP_DETAIL_FROM_ADDRESS { get; set; }
 
-    public string? StssmtpDetailGateway { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string STSSMTP_DETAIL_GATEWAY { get; set; }
 
-    public string? StssmtpDetailUsername { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STSSMTP_DETAIL_USERNAME { get; set; }
 
-    public string? StssmtpDetailPassword { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STSSMTP_DETAIL_PASSWORD { get; set; }
 
-    public string? StssmtpDetailSubject { get; set; }
+    [StringLength(6000)]
+    [Unicode(false)]
+    public string STSSMTP_DETAIL_SUBJECT { get; set; }
 
-    public string? StssmtpDetailBodyText { get; set; }
+    [StringLength(6000)]
+    [Unicode(false)]
+    public string STSSMTP_DETAIL_BODY_TEXT { get; set; }
 
-    public int? StssmtpTaskId { get; set; }
+    public int? STSSMTP_TASK_ID { get; set; }
 
-    public bool? StssmtpDetailIsActive { get; set; }
+    public bool? STSSMTP_DETAIL_IS_ACTIVE { get; set; }
 
-    public int StssmtpDetailCmpId { get; set; }
+    public int STSSMTP_DETAIL_CMP_ID { get; set; }
 
-    public int StssmtpDetailSchId { get; set; }
+    public int STSSMTP_DETAIL_SCH_ID { get; set; }
 
-    public string? StssmtpDetailMessageSubject { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string STSSMTP_DETAIL_MESSAGE_SUBJECT { get; set; }
 
-    public string? StssmtpDetailMessageBody { get; set; }
+    [StringLength(500)]
+    [Unicode(false)]
+    public string STSSMTP_DETAIL_MESSAGE_BODY { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
+
+    [ForeignKey("STSSMTP_TASK_ID")]
+    [InverseProperty("SMSTaskSmtpDetails")]
+    public virtual SMSTask STSSMTP_TASK { get; set; }
 }

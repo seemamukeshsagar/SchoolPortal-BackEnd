@@ -1,33 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("MarksGradeMaster")]
 public partial class MarksGradeMaster
 {
-    public Guid MarksGradeId { get; set; }
+    [Key]
+    public int MARKS_GRADE_ID { get; set; }
 
-    public int? MarksGradeClassId { get; set; }
+    public int? MARKS_GRADE_CLASS_ID { get; set; }
 
-    public int? MarksGradeMinRange { get; set; }
+    public int? MARKS_GRADE_MIN_RANGE { get; set; }
 
-    public int? MarksGradeMaxRange { get; set; }
+    public int? MARKS_GRADE_MAX_RANGE { get; set; }
 
-    public string? MarksGradeCode { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string MARKS_GRADE_CODE { get; set; }
 
-    public decimal? MarksGradePoint { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? MARKS_GRADE_POINT { get; set; }
 
-    public int MarksGradeCmpId { get; set; }
+    public int MARKS_GRADE_CMP_ID { get; set; }
 
-    public int MarksGradeSchId { get; set; }
+    public int MARKS_GRADE_SCH_ID { get; set; }
 
-    public bool? MarksGradeIsActive { get; set; }
+    public bool? MARKS_GRADE_IS_ACTIVE { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateOnly ModifiedDate { get; set; }
+    public DateOnly MODIFIED_DATE { get; set; }
 }

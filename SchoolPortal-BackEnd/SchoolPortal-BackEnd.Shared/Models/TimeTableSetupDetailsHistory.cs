@@ -1,49 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("TimeTableSetupDetailsHistory")]
 public partial class TimeTableSetupDetailsHistory
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int TTSETUPH_ID { get; set; }
 
-    public TimeOnly SchoolStartTime { get; set; }
+    [Precision(0)]
+    public TimeOnly TTSETUPH_SCHOOL_START_TIME { get; set; }
 
-    public TimeOnly SchoolEndTime { get; set; }
+    [Precision(0)]
+    public TimeOnly TTSETUPH_SCHOOL_END_TIME { get; set; }
 
-    public TimeOnly PeriodStartTime { get; set; }
+    [Precision(0)]
+    public TimeOnly TTSETUPH_PERIOD_START_TIME { get; set; }
 
-    public int TotalPeriods { get; set; }
+    public int TTSETUPH_TOTAL_PERIODS { get; set; }
 
-    public int PeriodDusration { get; set; }
+    public int TTSETUPH_PERIOD_DURATION { get; set; }
 
-    public int RecessDuration { get; set; }
+    public int TTSETUPH_RECCESS_DURATION { get; set; }
 
-    public int RecessAfterDuration { get; set; }
+    public int TTSETUPH_RECCESS_AFTER_PERIOD { get; set; }
 
-    public Guid SessionId { get; set; }
+    public int TTSETUPH_TTSESSION_ID { get; set; }
 
-    public int? FruitRecessDuration { get; set; }
+    public int TTSETUPH_CMP_ID { get; set; }
 
-    public int? FruitRecessAfterPeriod { get; set; }
+    public int TTSETUPH_SCH_ID { get; set; }
 
-    public Guid? CompanyId { get; set; }
+    public int? TTSETUPH_FRUIT_RECCESS_DURATION { get; set; }
 
-    public Guid? SchoolId { get; set; }
+    public int? TTSETUPH_FRUIT_RECCESS_AFTER_PERIOD { get; set; }
 
-    public bool IsActive { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string TTSETUPH_SESSION { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

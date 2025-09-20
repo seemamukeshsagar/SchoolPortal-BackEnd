@@ -1,49 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
 public partial class EmpSalaryDetail
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int ESALD_ID { get; set; }
 
-    public int EmployeeId { get; set; }
+    public int ESALD_ESALM_ID { get; set; }
 
-    public int? SalaryHeadMasterId { get; set; }
+    public int? ESALD_SALHM_ID { get; set; }
 
-    public int? DesignationGradeId { get; set; }
+    public int? ESALD_DESGRADE_ID { get; set; }
 
-    public decimal? Value { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? ESALD_VALUE { get; set; }
 
-    public string? SalaryType { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string ESALD_SALARY_TYPE { get; set; }
 
-    public bool IdDeduction { get; set; }
+    public bool ESALD_IS_DEDUCTION { get; set; }
 
-    public string? SalaryCode { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string ESALD_SAL_CODE { get; set; }
 
-    public string? SalaryDescription { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string ESALD_SAL_DESCRIPTION { get; set; }
 
-    public decimal? Amount { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? ESALD_AMOUNT { get; set; }
 
-    public string? IsSalaryHead { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string ESALD_IS_SALARY_HEAD { get; set; }
 
-    public Guid CompanyId { get; set; }
+    public int ESALD_CMP_ID { get; set; }
 
-    public Guid SchoolId { get; set; }
+    public int ESALD_SCH_ID { get; set; }
 
-    public bool IsActive { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public bool IsDeleted { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public Guid? CreatedBy { get; set; }
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
-
-    public Guid? ModifiedBy { get; set; }
-
-    public DateTime? ModifiedDate { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? StatusMessage { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }

@@ -1,19 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("CleanerMaster")]
 public partial class CleanerMaster
 {
+    [Key]
     public Guid Id { get; set; }
 
-    public string? Name { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Name { get; set; }
 
-    public string? Image { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string Image { get; set; }
 
-    public string? FatherName { get; set; }
+    [StringLength(100)]
+    [Unicode(false)]
+    public string FatherName { get; set; }
 
-    public string? Description { get; set; }
+    [StringLength(150)]
+    [Unicode(false)]
+    public string Description { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -25,13 +38,18 @@ public partial class CleanerMaster
 
     public Guid? CreatedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     public Guid? ModifiedBy { get; set; }
 
+    [Column(TypeName = "datetime")]
     public DateTime? ModifiedDate { get; set; }
 
-    public string? Status { get; set; }
+    [StringLength(10)]
+    [Unicode(false)]
+    public string Status { get; set; }
 
-    public string? StatusMessage { get; set; }
+    [StringLength(255)]
+    public string StatusMessage { get; set; }
 }

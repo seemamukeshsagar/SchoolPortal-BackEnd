@@ -1,59 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolPortal.Shared.Models;
 
+[Table("StudentMarksDetailsHistory")]
 public partial class StudentMarksDetailsHistory
 {
-    public Guid StumarkshId { get; set; }
+    [Key]
+    public int STUMARKSH_ID { get; set; }
 
-    public int StumarkshStumarksId { get; set; }
+    public int STUMARKSH_STUMARKS_ID { get; set; }
 
-    public Guid StumarkshStuGuid { get; set; }
+    public Guid STUMARKSH_STU_GUID { get; set; }
 
-    public int StumarkshSubCatId { get; set; }
+    public int STUMARKSH_SUB_CAT_ID { get; set; }
 
-    public decimal? StumarkshQ1Marks1 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_Q1_MARKS1 { get; set; }
 
-    public decimal? StumarkshQ1Marks2 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_Q1_MARKS2 { get; set; }
 
-    public decimal? StumarkshQ2Marks1 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_Q2_MARKS1 { get; set; }
 
-    public decimal? StumarkshQ2Marks2 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_Q2_MARKS2 { get; set; }
 
-    public decimal? StumarkshQ3Marks1 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_Q3_MARKS1 { get; set; }
 
-    public decimal? StumarkshQ3Marks2 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_Q3_MARKS2 { get; set; }
 
-    public decimal? StumarkshFa1 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_FA1 { get; set; }
 
-    public decimal? StumarkshFa2 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_FA2 { get; set; }
 
-    public decimal? StumarkshFa3 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_FA3 { get; set; }
 
-    public decimal? StumarkshFa4 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_FA4 { get; set; }
 
-    public decimal? StumarkshSa1 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_SA1 { get; set; }
 
-    public decimal? StumarkshSa2 { get; set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? STUMARKSH_SA2 { get; set; }
 
-    public int StumarkshCmId { get; set; }
+    public int STUMARKSH_CM_ID { get; set; }
 
-    public int StumarkshSecId { get; set; }
+    public int STUMARKSH_SEC_ID { get; set; }
 
-    public int StumarkshCmpId { get; set; }
+    public int STUMARKSH_CMP_ID { get; set; }
 
-    public int StumarkshSchId { get; set; }
+    public int STUMARKSH_SCH_ID { get; set; }
 
-    public bool? StumarkshIsActive { get; set; }
+    public bool? STUMARKSH_IS_ACTIVE { get; set; }
 
-    public string? StumarkshSession { get; set; }
+    [StringLength(50)]
+    [Unicode(false)]
+    public string STUMARKSH_SESSION { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string CREATED_BY { get; set; }
 
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime CREATED_DATE { get; set; }
 
-    public string ModifiedBy { get; set; } = null!;
+    [Required]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string MODIFIED_BY { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime MODIFIED_DATE { get; set; }
 }
