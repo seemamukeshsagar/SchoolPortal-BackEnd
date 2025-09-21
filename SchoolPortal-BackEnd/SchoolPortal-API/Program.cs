@@ -11,6 +11,7 @@ using SchoolPortal.Shared.Models;
 using SchoolPortal_API.Interfaces;
 using SchoolPortal_API.Repositories;
 using SchoolPortal_API.Services;
+using SchoolPortal_API.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -129,6 +130,9 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
         }
     });
+    
+    // Add custom operation filter for examples
+    c.OperationFilter<ExamplesOperationFilter>();
 });
 
 var app = builder.Build();

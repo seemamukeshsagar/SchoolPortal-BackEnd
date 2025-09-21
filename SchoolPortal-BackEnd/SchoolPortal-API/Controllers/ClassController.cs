@@ -32,7 +32,7 @@ namespace SchoolPortal_API.Controllers
         }
 
         [HttpGet("school/{schoolId}")]
-        [SwaggerOperation(Summary = "Get classes by school", OperationId = "GetClassesBySchool")]
+        [SwaggerOperation(Summary = "Get classes by school", Description = "Returns all classes for a given school (excluding soft-deleted)", OperationId = "GetClassesBySchool")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ClassResponseDto>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
         public async Task<ActionResult<IEnumerable<ClassResponseDto>>> GetBySchool(Guid schoolId)
@@ -56,7 +56,7 @@ namespace SchoolPortal_API.Controllers
         }
 
         [HttpGet("company/{companyId}")]
-        [SwaggerOperation(Summary = "Get classes by company", OperationId = "GetClassesByCompany")]
+        [SwaggerOperation(Summary = "Get classes by company", Description = "Returns all classes for a given company (excluding soft-deleted)", OperationId = "GetClassesByCompany")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ClassResponseDto>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
         public async Task<ActionResult<IEnumerable<ClassResponseDto>>> GetByCompany(Guid companyId)
@@ -154,6 +154,7 @@ namespace SchoolPortal_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(ProblemDetails))]
+        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
         public async Task<ActionResult<ClassResponseDto>> Create([FromBody] ClassDto dto)
         {
@@ -202,6 +203,7 @@ namespace SchoolPortal_API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
+        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(ProblemDetails))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
         public async Task<ActionResult<ClassResponseDto>> Update(Guid id, [FromBody] ClassDto dto)
         {
